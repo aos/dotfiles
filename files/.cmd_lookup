@@ -1,0 +1,232 @@
+- find
+1. Find and replace text in all files matching certain name scheme
+find . -iname "*.py" -type f -exec sed -i '' 's/abc/XYZ/gi' {} \;
+2. One line summary of files
+find . -exec file {} +
+  - "+" Adds the executed command to the same line with spacing
+  - "\;" Terminates command (escapes semicolon)
+
+- bc
+1. Converting numbers between bases using 'bc'
+echo "obase=2; ibase=16; C497" | bc
+
+- Changing MAC address: 
+sudo ifconfig en0 ether 00:e1:e2:e3:e4:e5 
+(last argument is an example MAC address)
+
+- Finding public IP Address
+curl ipinfo.io/ip
+
+- YARD
+1. Generate document:
+yardoc <filename>
+2. Run server [hot-reload]
+yard server [-r]
+
+- gpg
+1. Generate key pair
+gpg --full-generate-key
+1. List keys
+gpg -k (public)
+gpg -K (secret)
+2. Export a public key
+- Get the ID via 'gpg -k'
+gpg -e <public key ID>
+3. Import (someone else's) public key
+gpg --import <file.asc>
+4. Sign a key
+gpg --edit-key <key ID or email address>
+sign
+save
+5. Verify a key (if necessary)
+- Grab the fingerprint of their key and ask them to do the same
+gpg --fingerprint <theiremail@address.com>
+6. Encrypt a file (requires recipient's public key)
+gpg -e -a -r <recipient> -o <output_file> <file>
+  - 'e': encrypt
+  - 'a': armor (textual encoding instead of binary)
+7. Decrypt a file (requires your passphrase)
+gpg -d -o <new_file> <file>
+
+- dig
+1. For CNAME or A record lookup
+dig <A/CNAME> <URL>
+
+- awk
+1. String pattern matching and interaction
+2. Signature: awk 'pattern { action }' [file] (if not given, uses STDIN
+ls | awk '/li/ { print $0 }'
+3. Substitute within string
+ls | awk '/li/ {gsub(/ /, ""); print $1}'
+
+- tmux
+1. Prefix is <C-a>
+2. Detach: <prefix> + d
+3. New window: <prefix> + c (C to name)
+4. Close pane: <prefix> + x
+5. Copy mode: 
+    - Enter: <prefix> + [ 
+    - Use vim keys to do highlighting, then 'y' to copy
+    - Paste: <prefix> + ]
+6. Renaming (inside tmux):
+    - Session: <prefix> + $
+    - Window: <prefix> + ,
+7. Navigating windows:
+    - <prefix> + p (or) n
+    - Search by text: <prefix> + f
+    - List of current windows: <prefix> + w
+8. Send keys to all panes (toggle on/off): <prefix> + <C-b>
+9. Change window number: <prefix> + .
+10. Resizing panes:
+  - Resize panes equally: <prefix> + <space>
+  - Resize pane some other way:
+    - <prefix> + :
+      - 'resize-pane -{D, U, L, R} [#]'
+11. Re-arrange panes:
+  - <prefix> + { or }
+  - additionally, you can use command ':swap-pane -{D, U, L, R}'
+12. Move a window as a pane in an another window
+  - <prefix> + :
+    - 'join-pane -t <destination_window_number>'
+13. Break the pane into a window
+  - <prefix> + !
+14. Swap windows
+  - <prefix> + :
+      - 'swap-window -s {number of source window} -t {number of target}'
+
+- nmap
+1. Scan network for open SSH
+nmap -sS -p 22 192.168.1.0/24
+  - "-sS": SYN scan, only wait for response
+  - "-p 22": Search port 22 (SSH)
+  - "/24": Refers to how many bits are used up in address space. Since IP4
+    addresses are of length 32 bits, 32 - 24 = 8 bits or 256. This leaves the
+    last 0-255 to be scanned.
+
+- vim
+1. Copying filenames and directories (leader mappings)
+  - cfr (relative path + file)
+  - cfa (absolute path + file)
+  - cff (filename only)
+  - cfd (directory name)
+2. INSERT mode
+  - <CTRL-w> Deletes back one word
+  - <CTRL-u> Deletes back entire line
+3. Execute macro on multiple lines
+  - Use Ex mode:
+  - :5,10norm! @q
+  - Or visually select lines, then
+    - :norm! @q
+4. Resize splits:
+  - <CTRL-w> +/- increase/decrease height
+  - <CTRL-w> >/< increase/decrease width
+  - <CTRL-w>_ set height (max with no count) (50<C-w>_)
+  - <CTRL-w>| set width (max with no count) (50<C-w>|)
+  - <CTRL-w>= resize equally
+5. Count matches
+  - :%s/pattern//ng (n flag counts matches)
+6. Print all lines matching pattern
+  - :g/pattern
+7. Increment numbers in a sequence (after visual selection)
+  - g<CTRL-a>
+
+- vim-sexp-mappings(-for regular people)
+"Form": Anything surrounded by a pair of (), [], or {}
+"Element": Pretty much anything else
+1. "<I" and ">I" for insertion at beginning and end of form
+2. Slurp and barf -- ex. ((a |b) c d) -> ((a b c) d):
+  - ">)" or "<)" or ">(" or "<("
+  - angle bracket indicates direction, parenthesis indicates which end to
+    operate on
+3. Move a form or element: ">f" or "<f", ">e" or "<e"
+4. With surround.vim: use "f" or "e"
+
+- fzf (in vim)
+1. :Commits
+  - Git commits
+2. :Lines
+
+- docker
+1. Grab an image
+docker pull <image>
+2. Run a container from an image
+docker run <image>
+  - flags: -it (an interactive tty session)
+  - flag: --rm (automaticaly delete the container once exited, good for one-offs)
+  - flag: -d (detached mode)
+  - flag: -P (publish all exposed ports to random ports)
+  - flag: -p <port:80> (specify a custom port)
+  - flag: --name (names the container)
+3. List all containers (running or stopped)
+docker ps -a
+4. List all images
+docker images
+5. See the ports
+docker port <container>
+6. Remove a docker container
+docker rm <container_id>
+  - Can also add $(docker ps -a -q -f status=exited) to list only the
+    container_ids for batch removal of exited containers
+  - OR:
+    docker container prune
+7. Remove an image
+docker rmi <image_id>
+
+- ssh
+1. Login:
+ssh <username>@<IP address>
+  If you want to change your password:
+  - passwd
+2. Create an SSH key:
+(As per https://blog.g3rt.nl/upgrade-your-ssh-keys.html)
+~/.ssh
+ssh-keygen -o -a 100 -t ed25519 -f id_<filename> -C "<comment>"
+(Make sure to create a passphrase)
+3. Add it to remote authorized_keys, grab the *.pub version:
+cat id_ed.pub | pbcopy
+ssh <username>@<IP address>
+cd ~/.ssh/authorized_keys -> vim -> paste in id_ed.pub contents
+(alternatively use ssh-add)
+4. Login using the key:
+ssh -i <path to private SSH key> <username>@<IP address>
+5. Do not attempt key-based auth first, if you get too many auth key failures set:
+ssh -o "PubkeyAuthentication=no" <username>@<IP Address>
+6. If you still get asked for a password, use option:
+  -o "IdentitiesOnly=yes"
+
+- usermod
+(Add a user "sudo" privileges, check 'visudo' for the %sudo group)
+usermod -aG admin <user>
+
+- rails (console)
+1. Fuzzy/wildcard search on model
+Model.where('name ILIKE ?', '%word%')
+
+- git
+1. Add deleted files to staging
+git add -u
+
+- netcat
+1. Send a file on the same network
+=> Receiver:
+nc -l 8080 > file
+=> Sender:
+cat file | nc <RECV_IP> 8080
+2. Send a file over the internet
+=> Receiver:
+nc -l <PORT> | tar xvfz -
+=> Sender:
+tar cfz - <file> | nc <RECV_IP> <PORT>
+3. Checking if a specific port is connectable
+nc -z <HOSTNAME> <PORT>
+
+- apt
+1. List installed packages
+apt list --installed
+
+- Pi monitoring
+1. nethogs
+2. htop
+3. goaccess
+-> generate html report via:
+sudo zcat access.log.* | goaccess -a -o report.html

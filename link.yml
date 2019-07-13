@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+    homedir: "{{ lookup('env', 'HOME') }}"
+
+  tasks:
+
+    - name: List dotfiles final location
+      debug:
+        msg: "{{ homedir }}/{{ item | basename }}"
+      with_fileglob:
+        - "files/.*"
+
+    - name: Pause to make sure correct final location
+      pause:
+
+    - name: Link all files to home directory
+      file:
+        src: "{{ item }}"
+        dest: "{{ homedir }}/{{ item | basename }}"
+        state: link
+        force: no
+      with_fileglob:
+        - "files/.*"

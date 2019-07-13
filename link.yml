@@ -1,9 +1,9 @@
 ---
 - hosts: localhost
-  gather_facts: no
+  gather_facts: yes
   connection: local
   vars:
-    homedir: "{{ lookup('env', 'HOME') }}"
+    homedir: "{{ ansible_env.HOME }}"
 
   tasks:
 
@@ -41,6 +41,6 @@
         state: link
         force: yes
       loop:
-        - { name: "files/.config/nvim/init.vim", dest: "{{ homedir }}/.config/nvim/init.vim" }
-        - { name: "files/.config/nvim/after/syntax/scheme.vim", dest: "{{ homedir }}/.config/nvim/after/syntax/scheme.vim" }
-        - { name: "files/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json", dest: "{{ homedir }}/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json" }
+        - { source: "{{ ansible_env.PWD }}/files/.config/nvim/init.vim", dest: "{{ homedir }}/.config/nvim/init.vim" }
+        - { source: "{{ ansible_env.PWD }}/files/.config/nvim/after/syntax/scheme.vim", dest: "{{ homedir }}/.config/nvim/after/syntax/scheme.vim" }
+        - { source: "{{ ansible_env.PWD }}/files/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json", dest: "{{ homedir }}/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json" }

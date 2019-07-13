@@ -21,6 +21,6 @@
         src: "{{ item }}"
         dest: "{{ homedir }}/{{ item | basename }}"
         state: link
-        force: no
+        force: yes
       with_fileglob:
         - "files/.*"

@@ -16,7 +16,7 @@
     - name: Pause to make sure correct final location
       pause:
 
-    - name: Link all files to home directory
+    - name: Link all dotfiles to home directory
       file:
         src: "{{ item }}"
         dest: "{{ homedir }}/{{ item | basename }}"
@@ -24,3 +24,23 @@
         force: yes
       with_fileglob:
         - "files/.*"
+
+    - name: Create some directories necessary for (n)vim and iterm
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ homedir }}/.config/nvim/after/syntax"
+        - "{{ homedir }}/.config/nvim/ftplugin"
+        - "{{ homedir }}/Library/Application Support/iTerm2/DynamicProfiles"
+
+    - name: Symlink (n)vim files into created directories
+      file:
+        src: "{{ item.source }}"
+        dest: "{{ item.dest }}"
+        state: link
+        force: yes
+      loop:
+        - { name: "files/.config/nvim/init.vim", dest: "{{ homedir }}/.config/nvim/init.vim" }
+        - { name: "files/.config/nvim/after/syntax/scheme.vim", dest: "{{ homedir }}/.config/nvim/after/syntax/scheme.vim" }
+        - { name: "files/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json", dest: "{{ homedir }}/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json" }

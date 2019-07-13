@@ -1,7 +1,7 @@
 [user]
   name = Aos
   email = aosdab@gmail.com
-	signingkey = F1F213E4F35900E1
+  signingkey = F1F213E4F35900E1
 
 [alias]
   s = status

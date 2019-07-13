@@ -23,10 +23,6 @@ alias dirs="dirs -v"
 # More readable stat output
 #alias stat="stat -x"
 
-# Used to VC my dotfiles
-# https://gist.github.com/aos/05cd627a1e1bd38f390098f2f853c853
-alias config="/usr/local/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
-
 # Make bash speak in tongues, reverse it with "reset"
 alias summon="echo -e '\x1b(0'"
 

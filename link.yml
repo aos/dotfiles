@@ -7,15 +7,6 @@
 
   tasks:
 
-    - name: List dotfiles final location
-      debug:
-        msg: "{{ homedir }}/{{ item | basename }}"
-      with_fileglob:
-        - "files/.*"
-
-    - name: Pause to make sure correct final location
-      pause:
-
     - name: Link all dotfiles to home directory
       file:
         src: "{{ item }}"
@@ -32,6 +23,7 @@
       with_items:
         - "{{ homedir }}/.config/nvim/after/syntax"
         - "{{ homedir }}/.config/nvim/ftplugin"
+        - "{{ homedir }}/.ctags.d"
         - "{{ homedir }}/Library/Application Support/iTerm2/DynamicProfiles"
 
     - name: Symlink (n)vim files into created directories
@@ -44,3 +36,4 @@
         - { source: "{{ ansible_env.PWD }}/files/.config/nvim/init.vim", dest: "{{ homedir }}/.config/nvim/init.vim" }
         - { source: "{{ ansible_env.PWD }}/files/.config/nvim/after/syntax/scheme.vim", dest: "{{ homedir }}/.config/nvim/after/syntax/scheme.vim" }
         - { source: "{{ ansible_env.PWD }}/files/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json", dest: "{{ homedir }}/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json" }
+        - { source: "{{ ansible_env.PWD }}/files/.ctags.d/default.ctags", dest: "{{ homedir }}/.ctags.d/default.ctags" }

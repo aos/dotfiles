@@ -191,7 +191,7 @@ hi! link ALEErrorSign WarningMsg
 hi! ALEError ctermbg=none
 
 " === Previm -- preview file using :PrevimOpen
-let g:previm_open_cmd = 'open -a "Google Chrome"'
+let g:previm_open_cmd = 'open -a FirefoxDeveloperEdition'
 
 " === Tslime
 let g:tslime_always_current_session = 1

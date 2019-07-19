@@ -42,6 +42,8 @@
   whitespace = red reverse
 [diff]
   tool = vimdiff
+[mergetool "nvim"]
+  cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
 [gpg]
   program = /usr/local/bin/gpg
 [commit]

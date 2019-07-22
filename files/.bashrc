@@ -43,7 +43,7 @@ PS1="$TEAL[$PROMPT_CHAR]$CLEAR \W$YELLOW\$(parse_git_branch)$CLEAR ≫ "
 # Appends history of bash instead of deleting
 shopt -s histappend
 shopt -s cmdhist # Adjust multiline items to fit on one line
-HISTSIZE=500
+HISTSIZE=1000
 HISTFILESIZE=100000
 # Ignores commands that start with space and duplicates
 HISTCONTROL=ignoreboth
@@ -69,7 +69,7 @@ export PATH="$PATH:$GOPATH/bin"
 # Add ruby and node package managers
 ## nvm -- this is SLOWWWWWWWWWWW
 export NVM_DIR="$HOME/.nvm"
-BREW_NVM_DIR="$(brew --prefix nvm)"
+BREW_NVM_DIR="/usr/local/opt/nvm"
 [ -s "$BREW_NVM_DIR/nvm.sh" ] && source "$BREW_NVM_DIR/nvm.sh"
 [ -s "$BREW_NVM_DIR/etc/bash_completion" ] && source "$BREW_NVM_DIR/etc/bash_completion"  # This loads nvm bash_completion
 

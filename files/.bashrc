@@ -1,6 +1,9 @@
 # Do git completion in terminal
 source ~/.git-completion.bash
 
+# homebrew completions
+[ -f ~/.homebrew_completions.bash ] && source ~/.homebrew_completions.bash
+
 # Aliases
 [ -f ~/.aliases.bash ] && source ~/.aliases.bash
 
@@ -40,8 +43,8 @@ PS1="$TEAL[$PROMPT_CHAR]$CLEAR \W$YELLOW\$(parse_git_branch)$CLEAR ≫ "
 # Appends history of bash instead of deleting
 shopt -s histappend
 shopt -s cmdhist # Adjust multiline items to fit on one line
+HISTSIZE=500
 HISTFILESIZE=100000
-HISTSIZE=100000
 # Ignores commands that start with space and duplicates
 HISTCONTROL=ignoreboth
 # Ignores the following words in bash history
@@ -55,15 +58,20 @@ shopt -s histverify
 # FZF
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# nvm --> node version manager
-export NVM_DIR="$HOME/.nvm"
-# This loads nvm
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# rbenv --> ruby version manager
-eval "$(rbenv init -)"
-
 # Add qt5.5
 export PATH="/Users/adabbagh/Qt5.5.0/5.5/clang_64/bin:$PATH"
 
+# Add $GOPATH
+export GOPATH=$HOME/Desktop/code/go
+export GOBIN="$GOPATH/bin"
+export PATH="$PATH:$GOPATH/bin"
+
+# Add ruby and node package managers
+## nvm
+export NVM_DIR="$HOME/.nvm"
+BREW_NVM_DIR="$(brew --prefix nvm)"
+[ -s "$BREW_NVM_DIR/nvm.sh" ] && source "$BREW_NVM_DIR/nvm.sh"
+[ -s "$BREW_NVM_DIR/etc/bash_completion" ] && source "$BREW_NVM_DIR/etc/bash_completion"  # This loads nvm bash_completion
+
+## rbenv --> ruby version manager
+eval "$(rbenv init -)"

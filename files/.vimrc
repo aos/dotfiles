@@ -24,6 +24,10 @@ Plug 'lilydjwg/colorizer'               " Colorize hex #FFF
 Plug 'aos/tslime.vim'                   " Send commands from vim to tmux
 " Markdown previewer
 Plug 'kannokanno/previm', { 'for': 'markdown' }
+
+" Go swiss army knife
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " On-demand lazy-loaded syntax highlighting for ALL the languages
 Plug 'sheerun/vim-polyglot'
 " Rainbow parentheses for scheme/lisp
@@ -183,6 +187,14 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_javascript_eslint_suppress_missing_config = 1
 
+" === vim-go
+let g:go_fmt_command = "goimports"
+let g:go_fmt_fail_silently = 1
+
+" === vim-polyglot
+" Disable polyglot for go because we use vim-go
+let g:polyglot_disabled = ['go']
+
 " Map moving between lint errors to C-k and C-j
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -234,6 +246,8 @@ autocmd! InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 let g:deoplete#enable_at_startup = 1
 "let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 "let g:ycm_autoclose_preview_window_after_insertion = 1
+" completions for go (using vim-go)
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 " }}}
 
 " ========= Turn off swap files =========== {{{
@@ -249,7 +263,7 @@ set softtabstop=2
 let &shiftwidth = &softtabstop
 set shiftround      " Round indent to multiple of 'shiftwidth'
 set expandtab       " Insert spaces when <Tab> is pressed
-"set tabstop=2      " Render tabs using this many spaces
+"set tabstop=2       " Render tabs using this many spaces
 " }}}
 
 " ========= Scrolling ===================== {{{

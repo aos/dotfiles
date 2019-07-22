@@ -1,0 +1,27 @@
+---
+- name: homebrew | download Homebrew install script
+  get_url:
+    url: https://raw.githubusercontent.com/Homebrew/install/master/install
+    dest: vendor/homebrew/install
+
+- name: homebrew | install homebrew
+  command: ruby vendor/homebrew/install
+  args:
+    creates: /usr/local/bin/brew
+
+- name: homebrew | update homebrew
+  homebrew:
+    update_homebrew: yes
+
+- name: homebrew | prepare Brewfile
+  copy:
+    src: Brewfile
+    dest: "~/Library/Preferences/Brewfile"
+    mode: 0644
+
+- name: homebrew | bundle
+  command: brew bundle
+    chdir: "~/Library/Preferences/"
+
+- name: homebrew | clean up old versions
+  command: brew cleanup

@@ -67,7 +67,7 @@ export GOBIN="$GOPATH/bin"
 export PATH="$PATH:$GOPATH/bin"
 
 # Add ruby and node package managers
-## nvm
+## nvm -- this is SLOWWWWWWWWWWW
 export NVM_DIR="$HOME/.nvm"
 BREW_NVM_DIR="$(brew --prefix nvm)"
 [ -s "$BREW_NVM_DIR/nvm.sh" ] && source "$BREW_NVM_DIR/nvm.sh"

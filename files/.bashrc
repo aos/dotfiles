@@ -75,3 +75,5 @@ BREW_NVM_DIR="/usr/local/opt/nvm"
 
 ## rbenv --> ruby version manager
 eval "$(rbenv init -)"
+
+eval "$(goto --init)"

@@ -201,6 +201,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 hi! link ALEErrorSign WarningMsg
 hi! ALEError ctermbg=none
+hi! ALEWarning ctermbg=none
 
 " === Previm -- preview file using :PrevimOpen
 let g:previm_open_cmd = 'open -a FirefoxDeveloperEdition'

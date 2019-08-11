@@ -23,7 +23,8 @@ Plug 'kristijanhusak/vim-dirvish-git'   " Plug git into dirvish
 Plug 'lilydjwg/colorizer'               " Colorize hex #FFF
 Plug 'aos/tslime.vim'                   " Send commands from vim to tmux
 " Markdown previewer
-Plug 'kannokanno/previm', { 'for': 'markdown' }
+"Plug 'kannokanno/previm', { 'for': 'markdown' }
+Plug 'iamcco/markdown-preview.nvim', { 'for': 'markdown' }
 
 " Go swiss army knife
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -33,13 +34,13 @@ Plug 'sheerun/vim-polyglot'
 " Rainbow parentheses for scheme/lisp
 Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['scheme', 'lisp'] }
 " Grab vim-sexp for selecting forms
-Plug 'guns/vim-sexp'
+Plug 'guns/vim-sexp', { 'for': ['scheme', 'lisp'] }
 " And let's make it easier to use
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['scheme', 'lisp'] }
 
 " Language servers (for deoplete)
-Plug 'zchee/deoplete-jedi'              " Python
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+Plug 'zchee/deoplete-jedi'                                        " Python
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }  " JS
 
 " Colorschemes
 Plug 'lifepillar/vim-gruvbox8'
@@ -68,11 +69,11 @@ set number 	                        " line numbers
 set wrap                                " Wrap lines
 set history=1000	                " Store lots of :cmdline history
 set showcmd		                " Show incomplete commands
-set showmode		                " Show current mode down the bottom
+set showmode		                " Show current mode
 set visualbell		                " No sounds
 set clipboard=unnamed,unnamedplus	" Use system clipboard with yank
 set relativenumber                      " See NumberToggle function below
-set title		                " Give more detailed title for time-tracking apps
+set title		                " Give more detailed title
 set hidden                              " Allows making buffers hidden
 set backspace=indent,eol,start          " Proper backspace behavior
 set timeoutlen=400
@@ -81,6 +82,7 @@ set textwidth=79                        " Set the max text with, use 'gq'
 set spelllang=en
 set spellfile=$HOME/GDrive/vim/spell/en.utf-8.add  " Sets spellfile
 set inccommand=nosplit                  " Shows realtime changes of Ex command
+set viewoptions=""                      " Remove :mkview all together
 
 " Sets cursor types based on mode (bar and line)
 if exists("$TMUX")
@@ -331,30 +333,6 @@ function! JSONify()
   set syntax=json
 endfunction
 
-" Inline variable
-function! InlineVariable()
-  " Copy the variable under the cursor into the 'a' register
-  :let l:tmp_a = @a
-  :normal "ayiw
-  " Delete variable and equals sign
-  :normal 2daW
-  " Delete the expression into the 'b' register
-  :let l:tmp_b = @b
-  :normal "bd$
-  " Delete remnants of the line
-  :normal dd
-  " Go to the end of the previous line so we can start our search for the 
-  " usage of the variable to replace. Doing '0' instead of 'k$' doesn't work
-  normal k$
-  " Find the next occurence of the variable
-  exec '/\<' . @a . '\>'
-  " Replace that occurence with the text we yanked
-  exec ':.s/\<' . @a . '\>/' . escape(@b, "/")
-  :let @a = l:tmp_a
-  :let @b = l:tmp_b
-endfunction
-nnoremap <leader>ri :call InlineVariable()<CR>
-
 " Redirect the output of a Vim or external command into a scratch buffer
 function! Redir(cmd)
   for win in range(1, winnr('$'))
@@ -378,16 +356,6 @@ endfunction
 "   :Redir hi           show the full output of command ':hi' in scratch win
 "   :Redir !ls -al      show the full output of command ':!ls -al' in scratch
 command! -nargs=1 -complete=command Redir silent call Redir(<f-args>)
-
-function! SwitchParams(a, b, c, hello)
-  let l:tmp_a = @a
-  " Delete the parameter into the @a register
-  normal "adiw
-  " Delete the space and insert comma after next parameter, then word
-  exec "normal! dwea, \<C-r>a\<Esc>B"
-  let @a = l:tmp_a
-endfunction
-nnoremap <leader>p :call SwitchParams()<CR>
 
 function! GitInfo()
   let git = FugitiveHead()
@@ -431,7 +399,7 @@ nnoremap _ <C-w>v:Dirvish<CR>
 " Highlight last INSERTED text
 nnoremap gV `[v`]
 
-" Let's remap Q to be @@ so that replaying macros is that much easier
+" Remap Q to be @@ so that replaying macros is that much easier
 nnoremap Q @@
 
 " Map neovim terminal exit to jk

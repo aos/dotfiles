@@ -15,7 +15,7 @@ scm () {
 alias ll="ls -lFGha"
 alias ls="ls -FG"
 
-alias ff="/usr/bin/open -a '/Applications/Firefox.app'"
+alias ff="/usr/bin/open -a '/Applications/FirefoxDeveloperEdition.app'"
 
 # For pushd and popd
 alias dirs="dirs -v"

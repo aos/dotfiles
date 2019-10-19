@@ -234,3 +234,8 @@ sudo zcat access.log.* | goaccess -a -o report.html
 - ctags
 1. Respect .gitignore file
 ag -l | ctags -R --links=no -L -
+
+- od
+1. Use to get a octal/ASCII dump of something
+(-An: address none, -tuC: type unsigned integer of size one char)
+echo -n Apple | od -An -tuC

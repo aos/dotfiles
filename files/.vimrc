@@ -23,8 +23,8 @@ Plug 'kristijanhusak/vim-dirvish-git'   " Plug git into dirvish
 Plug 'lilydjwg/colorizer'               " Colorize hex #FFF
 Plug 'aos/tslime.vim'                   " Send commands from vim to tmux
 " Markdown previewer
-"Plug 'kannokanno/previm', { 'for': 'markdown' }
-Plug 'iamcco/markdown-preview.nvim', { 'for': 'markdown' }
+Plug 'kannokanno/previm', { 'for': 'markdown' }
+"Plug 'iamcco/markdown-preview.nvim', { 'for': 'markdown' }
 
 " Go swiss army knife
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }

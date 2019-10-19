@@ -70,13 +70,13 @@ export GOBIN="$GOPATH/bin"
 export PATH="$PATH:$GOPATH/bin"
 
 # Add ruby and node package managers
-## nvm -- this is SLOWWWWWWWWWWW
-export NVM_DIR="$HOME/.nvm"
-BREW_NVM_DIR="/usr/local/opt/nvm"
-[ -s "$BREW_NVM_DIR/nvm.sh" ] && source "$BREW_NVM_DIR/nvm.sh"
-[ -s "$BREW_NVM_DIR/etc/bash_completion" ] && source "$BREW_NVM_DIR/etc/bash_completion"  # This loads nvm bash_completion
-
 ## rbenv --> ruby version manager
 eval "$(rbenv init -)"
 
 eval "$(goto --init)"
+
+## nvm -- this is SLOWWWWWWWWWWW
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+

@@ -1,0 +1,39 @@
+---
+- hosts: devserver
+  gather_facts: no
+  become: true
+  become_method: sudo
+  user: root
+  vars_files:
+    - vars/main.yml
+
+  tasks:
+    - name: Create Admin User
+      user:
+        name: aos
+        password: "{{ aos_password | password_hash('sha512', password_salt) }}"
+        groups: sudo
+        shell: /bin/bash
+
+    - name: Add Authorized Key
+      authorized_key:
+        user: aos
+        key: "{{ shared_publickey }}"
+        state: present
+
+    - name: Disable Password Authentication and Root Login
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: "^{{ item.config | regex_escape() }}"
+        line: "{{ item.config }} {{ item.value }}"
+      with_items:
+        - { config: "PermitRootLogin", value: "no" }
+        - { config: "PasswordAuthentication", value: "no" }
+      notify:
+        - restart ssh
+
+  handlers:
+    - name: restart ssh
+      service:
+        name: sshd
+        state: restarted

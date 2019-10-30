@@ -239,3 +239,23 @@ ag -l | ctags -R --links=no -L -
 1. Use to get a octal/ASCII dump of something
 (-An: address none, -tuC: type unsigned integer of size one char)
 echo -n Apple | od -An -tuC
+
+- go
+1. Debugger
+dlv debug <main.go> -- (options) -- (command-line args)
+2. Inside delve, set breakpoint to main, then wherever else
+break main
+list
+continue
+3. pprof, add either CPU profile or heap profile:
+```
+// For cpu profile, put this at the beginning of the program
+f, _ := os.Create("cpu.out") // or "mem.out"
+pprof.StartCPUProfile(f)
+defer pprof.StartCPUProfile()
+
+// for heap profile, put this at the end of the program
+pprof.WriteHeapProfile(f)
+```
+go tool pprof -alloc_space m.out # for heap/memory allocation
+go tool pprof cpu.out # for cpu

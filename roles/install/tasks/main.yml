@@ -1,0 +1,6 @@
+---
+- name: Install apps
+  apt:
+    pkg: '{{ name }}'
+    update_cache: true
+  loop: '{{ apps }}'

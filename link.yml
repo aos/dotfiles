@@ -1,18 +1,17 @@
 ---
 - hosts: localhost
-  gather_facts: yes
+  gather_facts: true
   connection: local
   vars:
     homedir: "{{ ansible_env.HOME }}"
 
   tasks:
-
     - name: Link all dotfiles to home directory
       file:
         src: "{{ item }}"
         dest: "{{ homedir }}/{{ item | basename }}"
         state: link
-        force: yes
+        force: true
       with_fileglob:
         - "files/.*"
 
@@ -25,17 +24,17 @@
         - "{{ homedir }}/.config/nvim/ftplugin"
         - "{{ homedir }}/.ctags.d"
         - "{{ homedir }}/.config/alacritty"
-        - "{{ homedir }}/Library/Application Support/iTerm2/DynamicProfiles"
+      # - "{{ homedir }}/Library/Application Support/iTerm2/DynamicProfiles"
 
     - name: Symlink (n)vim files into created directories
       file:
         src: "{{ item.source }}"
         dest: "{{ item.dest }}"
         state: link
-        force: yes
+        force: true
       loop:
         - { source: "{{ ansible_env.PWD }}/files/.config/nvim/init.vim", dest: "{{ homedir }}/.config/nvim/init.vim" }
         - { source: "{{ ansible_env.PWD }}/files/.config/nvim/after/syntax/scheme.vim", dest: "{{ homedir }}/.config/nvim/after/syntax/scheme.vim" }
-        - { source: "{{ ansible_env.PWD }}/files/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json", dest: "{{ homedir }}/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json" }
+      # - { source: "{{ ansible_env.PWD }}/files/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json", dest: "{{ homedir }}/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json" }
         - { source: "{{ ansible_env.PWD }}/files/.ctags.d/default.ctags", dest: "{{ homedir }}/.ctags.d/default.ctags" }
         - { source: "{{ ansible_env.PWD }}/files/alacritty.yml", dest: "{{ homedir }}/.config/alacritty/alacritty.yml" }

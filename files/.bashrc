@@ -71,9 +71,9 @@ export PATH="$PATH:$GOPATH/bin"
 
 # Add ruby and node package managers
 ## rbenv --> ruby version manager
-eval "$(rbenv init -)"
+command -v rbenv >/dev/null && eval "$(rbenv init -)"
 
-eval "$(goto --init)"
+command -v goto >/dev/null && eval "$(goto --init)"
 
 ## nvm -- this is SLOWWWWWWWWWWW
 export NVM_DIR="$HOME/.nvm"

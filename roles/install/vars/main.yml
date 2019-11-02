@@ -3,5 +3,6 @@ apps:
   # - node
   # - go
   # - diff-so-fancy
+  # - alacritty
   - neovim
   - silversearcher-ag

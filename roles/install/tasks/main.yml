@@ -1,6 +1,10 @@
 ---
+- name: Add neovim repository to get latest neovim
+  - apt_repository:
+      repo: ppa:neovim-ppa/stable
+
 - name: Install apps
   apt:
-    pkg: '{{ name }}'
+    pkg: '{{ item }}'
     update_cache: true
   loop: '{{ apps }}'

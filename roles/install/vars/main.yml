@@ -1,4 +1,7 @@
 ---
 apps:
+  # - node
+  # - go
+  # - diff-so-fancy
   - neovim
   - silversearcher-ag

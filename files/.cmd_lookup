@@ -49,6 +49,9 @@ gpg -e -a -r <recipient> -o <output_file> <file>
   - 'a': armor (textual encoding instead of binary)
 7. Decrypt a file (requires your passphrase)
 gpg -d -o <new_file> <file>
+8. Export/Import a private key
+gpg --export-secret-keys <$ID> > my-private-key.asc
+gpg --import my-private-key.asc
 
 - dig
 1. For CNAME or A record lookup

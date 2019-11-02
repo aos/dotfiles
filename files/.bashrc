@@ -1,3 +1,6 @@
+# Colorized 'ls' and other things
+export CLICOLOR=1
+
 # Do git completion in terminal
 source ~/.git-completion.bash
 

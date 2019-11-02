@@ -11,14 +11,30 @@ scm () {
   fi
 }
 
+ll () {
+  opts=("-lFHa") 
+  if [[ $(uname) = "Linux" ]]; then
+    opts+=("--color")
+  fi
+  opts+=($@)
+  ls "${opts[@]}"
+}
+
 # Colorized ls is best ls
-alias ll="ls -lFGha"
-alias ls="ls -FG"
+# -l  long format
+# -F  displays ('/', '*', '@', etc.) after certain paths
+# -G  colorized output (on darwin)
+# -h  use unit suffixes (Byte, Kilobyte, etc.)
+# -a  dirs with ('.')
+ls --color=auto &> /dev/null && alias ls='ls -F --color=auto' || alias ls='ls -F'
 
 alias ff="/usr/bin/open -a '/Applications/FirefoxDeveloperEdition.app'"
 
 # For pushd and popd
 alias dirs="dirs -v"
+
+# Colorized grep
+alias grep='grep --color'
 
 # More readable stat output
 #alias stat="stat -x"

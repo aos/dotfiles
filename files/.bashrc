@@ -5,7 +5,7 @@ source ~/.git-completion.bash
 [ -f ~/.homebrew_completions.bash ] && source ~/.homebrew_completions.bash
 
 # alacritty completions
-source ~/.bash_completion/alacritty
+[ -f ~/.bash_completion/alacritty ] && source ~/.bash_completion/alacritty
 
 # Aliases
 [ -f ~/.aliases.bash ] && source ~/.aliases.bash

@@ -1,5 +1,5 @@
-HOMEBREW_PREFIX=$(brew --prefix)
 if type brew &>/dev/null; then
+  HOMEBREW_PREFIX=$(brew --prefix)
   for COMPLETION in "$HOMEBREW_PREFIX"/etc/bash_completion.d/*
   do
     [[ -f $COMPLETION ]] && source "$COMPLETION"

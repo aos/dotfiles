@@ -1,4 +1,4 @@
-# Colorized 'ls' and other things
+# Colorized 'ls' and other things (for darwin)
 export CLICOLOR=1
 
 # Do git completion in terminal

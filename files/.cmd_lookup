@@ -52,6 +52,8 @@ gpg -d -o <new_file> <file>
 8. Export/Import a private key
 gpg --export-secret-keys <$ID> > my-private-key.asc
 gpg --import my-private-key.asc
+9. Get key ID (it is on the same line as pub/sec)
+gpg -K --keyid-format LONG
 
 - dig
 1. For CNAME or A record lookup

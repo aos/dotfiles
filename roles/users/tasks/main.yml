@@ -4,15 +4,31 @@
     name: aos
     password: "{{ aos_password | password_hash('sha512', password_salt) }}"
     groups: sudo
+    create_home: yes
     shell: /bin/bash
 
-- name:
+- name: Create IRC user
   user:
     name: irssi
     password: "{{ aos_password | password_hash('sha512', password_salt) }}"
+    create_home: yes
     shell: /bin/bash
 
-- name: Add Authorized Key
+- name: Create IRC directory
+  file:
+    path: '~/.irssi'
+    state: directory
+    mode: '0755'
+  tags: [ 'never', 'irssi' ]
+
+- name: Add IRC files
+  copy:
+    src: "{{ item }}"
+    dest: "~/.irssi/{{ item | basename }}"
+  with_fileglob: 'irssi/*'
+  tags: [ 'never', 'irssi' ]
+
+- name: Add Authorized Keys
   authorized_key:
     user: "{{ item }}"
     key: "{{ shared_publickey }}"
@@ -27,7 +43,7 @@
     regexp: "^{{ item.config | regex_escape() }}"
     line: "{{ item.config }} {{ item.value }}"
   with_items:
-    - { config: "PermitRootLogin", value: "no" }
-    - { config: "PasswordAuthentication", value: "no" }
+    - { config: 'PermitRootLogin', value: 'no' }
+    - { config: 'PasswordAuthentication', value: 'no' }
   notify:
     - restart ssh

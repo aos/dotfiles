@@ -1,8 +1,5 @@
 ---
 - hosts: devserver
   gather_facts: no
-  become: true
-  become_method: sudo
-  user: root
   roles:
     - users

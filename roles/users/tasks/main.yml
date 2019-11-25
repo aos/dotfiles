@@ -1,0 +1,33 @@
+---
+- name: Create Admin User
+  user:
+    name: aos
+    password: "{{ aos_password | password_hash('sha512', password_salt) }}"
+    groups: sudo
+    shell: /bin/bash
+
+- name:
+  user:
+    name: irssi
+    password: "{{ aos_password | password_hash('sha512', password_salt) }}"
+    shell: /bin/bash
+
+- name: Add Authorized Key
+  authorized_key:
+    user: "{{ item }}"
+    key: "{{ shared_publickey }}"
+    state: present
+  with_items:
+    - aos
+    - irssi
+
+- name: Disable Password Authentication and Root Login
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^{{ item.config | regex_escape() }}"
+    line: "{{ item.config }} {{ item.value }}"
+  with_items:
+    - { config: "PermitRootLogin", value: "no" }
+    - { config: "PasswordAuthentication", value: "no" }
+  notify:
+    - restart ssh

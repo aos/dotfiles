@@ -38,3 +38,5 @@
       # - { source: "{{ ansible_env.PWD }}/files/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json", dest: "{{ homedir }}/Library/Application Support/iTerm2/DynamicProfiles/iterm2config.json" }
         - { source: "{{ ansible_env.PWD }}/files/.ctags.d/default.ctags", dest: "{{ homedir }}/.ctags.d/default.ctags" }
         - { source: "{{ ansible_env.PWD }}/files/alacritty.yml", dest: "{{ homedir }}/.config/alacritty/alacritty.yml" }
+
+# vi: set ft=yaml.ansible :

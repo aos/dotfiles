@@ -11,7 +11,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 "Plug 'Valloric/YouCompleteMe'           " Code completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'w0rp/ale'                         " Asynchronous linter
+Plug 'dense-analysis/ale'                         " Asynchronous linter
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                 " Fast fuzzy finder (:fzf)
 Plug 'tpope/vim-fugitive'               " Awesome git wrapper (:Git)
@@ -43,7 +43,7 @@ Plug 'zchee/deoplete-jedi'                                        " Python
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }  " JS
 
 " Colorschemes
-Plug 'lifepillar/vim-gruvbox8'
+"Plug 'lifepillar/vim-gruvbox8'
 "Plug 'bluz71/vim-moonfly-colors'
 "Plug 'joshdick/onedark.vim'
 "Plug 'mhartington/oceanic-next'
@@ -57,7 +57,7 @@ Plug 'lifepillar/vim-gruvbox8'
 "Plug 'junegunn/seoul256.vim'
 "Plug 'jnurmine/Zenburn'
 "Plug 'chriskempson/base16-vim'
-"Plug 'romainl/Apprentice'
+Plug 'romainl/Apprentice'
 "Plug 'tyrannicaltoucan/vim-deep-space'
 call plug#end()
 " }}}
@@ -101,7 +101,7 @@ endif
 set laststatus=2                        " Always show statusbar
 
 set statusline=
-set statusline+=%#ModeMsg#              " Buffer number color
+set statusline+=%#ColorColumn#            " Buffer number color
 set statusline+=\ %-1.2n\               " Space offset for buffer number
 set statusline+=%#Folded#%{GitInfo()}\  " Set git info with color
 set statusline+=%#ColorColumn#          " CursorColumn color
@@ -123,7 +123,7 @@ set background=dark
 "let g:oceanic_next_terminal_bold=1
 "let g:oceanic_next_terminal_italic=1
 "let g:onedark_terminal_italics=1
-colorscheme gruvbox8
+colorscheme apprentice
 "let g:gruvbox_plugin_hi_groups = 1
 let g:gruvbox_transp_bg = 1
 "let g:seoul256_background = 234
@@ -143,13 +143,14 @@ highlight ColorColumn guibg=#3A3A3A
 highlight CursorLine guibg=#2F2F2F
 highlight CursorColumn guibg=#2F2F2F
 highlight LineNr guibg=NONE
+highlight SignColumn guibg=NONE
 
 " == Tab bar coloring
 highlight TabLineFill guibg=#3A3A3A guifg=#3A3A3A
 highlight TabLine guibg=#B7B7B7 guifg=#3A3A3A
 highlight TabLineSel guifg=#D6B600
 " == Remove tildes at end of buffer
-"highlight! EndOfBuffer ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+"highlight EndOfBuffer ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 
 " == Highlight extra whitespace as green
 highlight ExtraWhitespace guibg=lightgreen
@@ -189,9 +190,16 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_javascript_eslint_suppress_missing_config = 1
 
+hi! link ALEErrorSign WarningMsg
+hi! link ALEWarningSign WarningMsg
+hi! ALEError ctermbg=none
+hi! ALEWarning ctermbg=none
+
 " === vim-go
 let g:go_fmt_command = "goimports"
 let g:go_fmt_fail_silently = 1
+let g:go_highlight_diagnostic_errors = 0
+let g:go_highlight_diagnostic_warnings = 0
 
 " === vim-polyglot
 " Disable polyglot for go because we use vim-go
@@ -200,10 +208,6 @@ let g:polyglot_disabled = ['go']
 " Map moving between lint errors to C-k and C-j
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-hi! link ALEErrorSign WarningMsg
-hi! ALEError ctermbg=none
-hi! ALEWarning ctermbg=none
 
 " === Previm -- preview file using :PrevimOpen
 let g:previm_open_cmd = 'open -a FirefoxDeveloperEdition'

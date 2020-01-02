@@ -266,3 +266,13 @@ pprof.WriteHeapProfile(f)
 ```
 go tool pprof -alloc_space m.out # for heap/memory allocation
 go tool pprof cpu.out # for cpu
+
+- irssi
+1. Scroll up and down
+fn + Up/Down
+
+- irssi
+1. Scroll up and down
+fn + Up/Down
+2. Config
+https://git.sr.ht/~aos/irssi

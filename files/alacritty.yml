@@ -175,7 +175,7 @@ colors:
   # Default colors
   primary:
     background: '0x282828'
-    foreground: '0xeaeaea'
+    foreground: '0xbcbcbc'
 
     # Bright and dim foreground colors
     #
@@ -537,6 +537,7 @@ key_bindings:
   - { key: Copy,                    action: Copy                             }
   - { key: L,        mods: Control, action: ClearLogNotice                   }
   - { key: L,        mods: Control, chars: "\x0c"                            }
+  - { key: N,        mods: Alt,     chars: "\x1b"                            }
   - { key: Home,     mods: Alt,     chars: "\x1b[1;3H"                       }
   - { key: Home,                    chars: "\x1bOH",        mode: AppCursor  }
   - { key: Home,                    chars: "\x1b[H",        mode: ~AppCursor }

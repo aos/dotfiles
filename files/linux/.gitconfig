@@ -1,0 +1,50 @@
+[user]
+  name = Aos
+  email = dabbagh.aos@gmail.com
+  signingkey = 52EF07EA6B6D6291
+
+[alias]
+  s = status
+  cm = commit -m
+  co = checkout
+  d = diff
+  di = diff --no-index
+  ds = diff --staged
+  l = log --stat --abbrev-commit
+  ll = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+  lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an (%aE)%C(reset)' --all
+  root = rev-parse --show-toplevel
+  sha1 = !sh -c 'git rev-parse --short ${1:-HEAD}' --
+  # For saving normal diffs to email or later: 'git patch > changes.patch'
+  patch = !git --no-pager diff --no-color
+  alias = config --get-regexp alias
+  edit = !$EDITOR $(git ls-files -o -m --exclude-standard)
+
+[core]
+  editor = nvim
+  pager = diff-so-fancy | less --tabs=4 -RFX
+  excludesfile = /Users/adabbagh/.global_ignore
+[credential]
+  helper = osxkeychain
+[color]
+  ui = true
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+[color "diff"]
+  meta = 227
+  frag = magenta bold
+  commit = 227 bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+[diff]
+  tool = vimdiff
+[mergetool "nvim"]
+  cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
+[gpg]
+  program = /usr/bin/gpg
+[commit]
+  gpgsign = true

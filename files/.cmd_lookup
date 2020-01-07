@@ -276,3 +276,7 @@ fn + Up/Down
 fn + Up/Down
 2. Config
 https://git.sr.ht/~aos/irssi
+
+- notifications (mac osx)
+1. Using AppleScript: display notification "Hello there" with title "Yes"
+osascript -e 'display notification "Hello there" with title "Yes"'

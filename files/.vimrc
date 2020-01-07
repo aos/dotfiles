@@ -103,7 +103,7 @@ set laststatus=2                        " Always show statusbar
 set statusline=
 set statusline+=%#ColorColumn#            " Buffer number color
 set statusline+=\ %-1.2n\               " Space offset for buffer number
-set statusline+=%#Folded#%{GitInfo()}\  " Set git info with color
+set statusline+=%{GitInfo()}\           " Set git info with color
 set statusline+=%#ColorColumn#          " CursorColumn color
 set statusline+=%f                      " Relative path to file
 set statusline+=\%r%w                   " Read-only flag (and preview)
@@ -173,7 +173,7 @@ set listchars=tab:▸\ ,eol:¬
 set foldmethod=indent                     " Fold based on indent
 set foldnestmax=3                         " Deepest fold is 3 levels
 set foldlevelstart=99                     " All folds open by default
-highlight Folded guibg=#000 guifg=#a3a34c
+highlight! link Folded Special
 " }}}
 
 " ========= Plugin options ================ {{{
@@ -364,7 +364,7 @@ command! -nargs=1 -complete=command Redir silent call Redir(<f-args>)
 function! GitInfo()
   let git = FugitiveHead()
   if git != ''
-    return '(' . FugitiveHead() . ')'
+    return '(' . git . ')'
   else
     return ''
 endfunction

@@ -1,2 +1,2 @@
 # Load .bashrc if it exists
-test -f ~/.bashrc && source ~/.bashrc
+test -r ~/.bashrc && source ~/.bashrc

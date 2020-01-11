@@ -270,13 +270,22 @@ go tool pprof cpu.out # for cpu
 - irssi
 1. Scroll up and down
 fn + Up/Down
-
-- irssi
-1. Scroll up and down
-fn + Up/Down
 2. Config
 https://git.sr.ht/~aos/irssi
 
-- notifications (mac osx)
+- desktop notifications (mac osx)
 1. Using AppleScript: display notification "Hello there" with title "Yes"
 osascript -e 'display notification "Hello there" with title "Yes"'
+
+- jq
+1. Preview using fzf
+echo '' | fzf --print-query --preview-window wrap --preview 'cat <JSON>.json | jq {q}'
+
+- sed
+1. Edit files in place
+sed -i '' 's/blah/toBlah/g' (macOSX)
+sed -i 's/blah/blahAgain/g'
+2. run multiple commands using -e
+sed -i -e 's/edit/intothis/g' -e 's/butAlso/Thishere/g'
+3. Append lines after match (use /a)
+sed -e '/thisMatch/a "Add this line below thisMatch"'

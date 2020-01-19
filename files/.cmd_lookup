@@ -153,6 +153,20 @@ nmap -sS -p 22 192.168.1.0/24
   - Git commits
 2. :Lines
 
+- easy_align (vim)
+1. visually select group, press "ga"
+- delimiters: (<Space>, =, :, ., |, &, #, ",")
+- regex: <ctrl+x> in interactive mode
+---
+    =       Around the 1st occurrences
+    2=      Around the 2nd occurrences
+    *=      Around all occurrences
+    **=     Left/Right alternating alignment around all occurrences
+    <Enter> Switching between left/right/center alignment modes
+---
+2. Set ignore groups: <Ctrl-g> (default: string, comment)
+3. :LiveEasyAlign for preview (press same delim to finalize)
+
 - docker
 1. Grab an image
 docker pull <image>

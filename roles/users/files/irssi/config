@@ -1,18 +1,4 @@
 servers = (
-  { address = "irc.dal.net"; chatnet = "DALnet"; port = "6667"; },
-  {
-    address = "ssl.efnet.org";
-    chatnet = "EFNet";
-    port = "9999";
-    use_tls = "yes";
-  },
-  {
-    address = "irc.esper.net";
-    chatnet = "EsperNet";
-    port = "6697";
-    use_tls = "yes";
-    tls_verify = "yes";
-  },
   {
     address = "chat.freenode.net";
     chatnet = "Freenode";
@@ -27,65 +13,23 @@ servers = (
     chatnet = "GameSurge";
     port = "6667";
   },
-  {
-    address = "eu.irc6.net";
-    chatnet = "IRCnet";
-    port = "6667";
-    use_tls = "yes";
-  },
-  { address = "open.ircnet.net"; chatnet = "IRCnet"; port = "6667"; },
-  {
-    address = "irc.ircsource.net";
-    chatnet = "IRCSource";
-    port = "6667";
-  },
-  { address = "irc.netfuze.net"; chatnet = "NetFuze"; port = "6667"; },
-  {
-    address = "irc.oftc.net";
-    chatnet = "OFTC";
-    port = "6697";
-    use_tls = "yes";
-    tls_verify = "yes";
-  },
   { 
     address = "irc.quakenet.org";
     chatnet = "QuakeNet";
     port = "6667";
   },
   {
-    address = "irc.rizon.net";
-    chatnet = "Rizon";
+    address = "irc.oftc.net";
+    chatnet = "oftc";
     port = "6697";
     use_tls = "yes";
-    tls_verify = "yes";
-  },
-  { address = "silc.silcnet.org"; chatnet = "SILC"; port = "706"; },
-  { 
-    address = "irc.undernet.org";
-    chatnet = "Undernet";
-    port = "6667";
+    tls_cert = "~/.irssi/certs/nick.pem";
+    tls_verify = "no";
+    autoconnect = "yes";
   }
 );
 
 chatnets = {
-  DALnet = {
-    type = "IRC";
-    max_kicks = "4";
-    max_msgs = "20";
-    max_whois = "30";
-  };
-  EFNet = { 
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "4";
-    max_whois = "1";
-  };
-  EsperNet = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "4";
-    max_whois = "1";
-  };
   Freenode = {
     type = "IRC";
     nick = "aos";
@@ -100,65 +44,39 @@ chatnets = {
     max_msgs = "1";
     max_whois = "1";
   };
-  IRCnet = { 
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "1";
-    max_whois = "1";
-  };
-  IRCSource = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "4";
-    max_whois = "1";
-  };
-  NetFuze = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "1";
-    max_whois = "1";
-  };
-  OFTC = { type = "IRC"; max_kicks = "1"; max_msgs = "1"; max_whois = "1"; };
   QuakeNet = {
     type = "IRC";
     max_kicks = "1";
     max_msgs = "1";
     max_whois = "1";
   };
-  Rizon = { 
+  oftc = {
     type = "IRC";
-    max_kicks = "1";
-    max_msgs = "1";
-    max_whois = "1";
-  };
-  SILC = { type = "SILC"; };
-  Undernet = {
-    type = "IRC";
-    max_kicks = "1";
-    max_msgs = "1";
-    max_whois = "1";
+    nick = "aos";
+    username = "aos";
+    realname = "aos";
+    usermode = "+w";
   };
 };
 
 channels = (
-  { name = "#lobby"; chatnet = "EsperNet"; autojoin = "No"; },
-  { name = "#gamesurge"; chatnet = "GameSurge"; autojoin = "No"; },
-  { name = "#ircsource"; chatnet = "IRCSource"; autojoin = "No"; },
-  { name = "#netfuze"; chatnet = "NetFuze"; autojoin = "No"; },
-  { name = "#oftc"; chatnet = "OFTC"; autojoin = "No"; },
-  { name = "silc"; chatnet = "SILC"; autojoin = "No"; },
   { name = "#freenode"; chatnet = "Freenode"; autojoin = "Yes"; },
-  { name = "#vim"; chatnet = "Freenode"; autojoin = "yes"; },
-  { name = "#neovim"; chatnet = "Freenode"; autojoin = "yes"; },
   { name = "#irssi"; chatnet = "Freenode"; autojoin = "yes"; },
   { name = "##linux"; chatnet = "Freenode"; autojoin = "yes"; },
-  { name = "#raspberrypi"; chatnet = "Freenode"; autojoin = "yes"; },
+  { name = "#archlinux"; chatnet = "Freenode"; autojoin = "yes"; },
   { name = "#docker"; chatnet = "Freenode"; autojoin = "yes"; },
-  { name = "#python"; chatnet = "Freenode"; autojoin = "yes"; },
-  { name = "##programming"; chatnet = "Freenode"; autojoin = "yes"; },
-  { name = "##networking"; chatnet = "Freenode"; autojoin = "yes"; },
+  { name = "#ansible"; chatnet = "Freenode"; autojoin = "yes"; },
   { name = "#lobsters"; chatnet = "Freenode"; autojoin = "yes"; },
-  { name = "#scheme"; chatnet = "Freenode"; autojoin = "yes"; }
+  { name = "#go-nuts"; chatnet = "Freenode"; autojoin = "yes"; },
+  { name = "#python"; chatnet = "Freenode"; autojoin = "yes"; },
+  { name = "#scheme"; chatnet = "Freenode"; autojoin = "yes"; },
+  { name = "#vim"; chatnet = "Freenode"; autojoin = "yes"; },
+  { name = "#neovim"; chatnet = "Freenode"; autojoin = "yes"; },
+  { name = "#raspberrypi"; chatnet = "Freenode"; autojoin = "yes"; },
+  { name = "##networking"; chatnet = "Freenode"; autojoin = "yes"; },
+  { name = "#debian-mentors"; chatnet = "oftc"; autojoin = "yes"; },
+  { name = "#debian"; chatnet = "oftc"; autojoin = "yes"; },
+  { name = "#systemd"; chatnet = "Freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -233,85 +151,6 @@ aliases = {
   18 = "WINDOW GOTO 18";
   19 = "WINDOW GOTO 19";
   20 = "WINDOW GOTO 20";
-  21 = "WINDOW GOTO 21";
-  22 = "WINDOW GOTO 22";
-  23 = "WINDOW GOTO 23";
-  24 = "WINDOW GOTO 24";
-  25 = "WINDOW GOTO 25";
-  26 = "WINDOW GOTO 26";
-  27 = "WINDOW GOTO 27";
-  28 = "WINDOW GOTO 28";
-  29 = "WINDOW GOTO 29";
-  30 = "WINDOW GOTO 30";
-  31 = "WINDOW GOTO 31";
-  32 = "WINDOW GOTO 32";
-  33 = "WINDOW GOTO 33";
-  34 = "WINDOW GOTO 34";
-  35 = "WINDOW GOTO 35";
-  36 = "WINDOW GOTO 36";
-  37 = "WINDOW GOTO 37";
-  38 = "WINDOW GOTO 38";
-  39 = "WINDOW GOTO 39";
-  40 = "WINDOW GOTO 40";
-  41 = "WINDOW GOTO 41";
-  42 = "WINDOW GOTO 42";
-  43 = "WINDOW GOTO 43";
-  44 = "WINDOW GOTO 44";
-  45 = "WINDOW GOTO 45";
-  46 = "WINDOW GOTO 46";
-  47 = "WINDOW GOTO 47";
-  48 = "WINDOW GOTO 48";
-  49 = "WINDOW GOTO 49";
-  50 = "WINDOW GOTO 50";
-  51 = "WINDOW GOTO 51";
-  52 = "WINDOW GOTO 52";
-  53 = "WINDOW GOTO 53";
-  54 = "WINDOW GOTO 54";
-  55 = "WINDOW GOTO 55";
-  56 = "WINDOW GOTO 56";
-  57 = "WINDOW GOTO 57";
-  58 = "WINDOW GOTO 58";
-  59 = "WINDOW GOTO 59";
-  60 = "WINDOW GOTO 60";
-  61 = "WINDOW GOTO 61";
-  62 = "WINDOW GOTO 62";
-  63 = "WINDOW GOTO 63";
-  64 = "WINDOW GOTO 64";
-  65 = "WINDOW GOTO 65";
-  66 = "WINDOW GOTO 66";
-  67 = "WINDOW GOTO 67";
-  68 = "WINDOW GOTO 68";
-  69 = "WINDOW GOTO 69";
-  70 = "WINDOW GOTO 70";
-  71 = "WINDOW GOTO 71";
-  72 = "WINDOW GOTO 72";
-  73 = "WINDOW GOTO 73";
-  74 = "WINDOW GOTO 74";
-  75 = "WINDOW GOTO 75";
-  76 = "WINDOW GOTO 76";
-  77 = "WINDOW GOTO 77";
-  78 = "WINDOW GOTO 78";
-  79 = "WINDOW GOTO 79";
-  80 = "WINDOW GOTO 80";
-  81 = "WINDOW GOTO 81";
-  82 = "WINDOW GOTO 82";
-  83 = "WINDOW GOTO 83";
-  84 = "WINDOW GOTO 84";
-  85 = "WINDOW GOTO 85";
-  86 = "WINDOW GOTO 86";
-  87 = "WINDOW GOTO 87";
-  88 = "WINDOW GOTO 88";
-  89 = "WINDOW GOTO 89";
-  90 = "WINDOW GOTO 90";
-  91 = "WINDOW GOTO 91";
-  92 = "WINDOW GOTO 92";
-  93 = "WINDOW GOTO 93";
-  94 = "WINDOW GOTO 94";
-  95 = "WINDOW GOTO 95";
-  96 = "WINDOW GOTO 96";
-  97 = "WINDOW GOTO 97";
-  98 = "WINDOW GOTO 98";
-  99 = "WINDOW GOTO 99";
   themereload = "script exec Irssi::themes_reload();";
 };
 
@@ -424,13 +263,6 @@ statusbar = {
         barend = { priority = "100"; alignment = "right"; };
       };
     };
-    awl_2 = {
-      items = {
-        barstart = { priority = "100"; };
-        awl_2 = { };
-        barend = { priority = "100"; alignment = "right"; };
-      };
-    };
   };
 };
 settings = {
@@ -458,11 +290,13 @@ settings = {
     usercount_show_zero = "no";
     usercount_show_ircops = "yes";
     awl_detach = "";
+    neat_colors = "rX5EX3CygGcCBX3HbX4NMX3AX32X42m";
+    nickcolor_colors = "2 3 5 6 7 10 12 13 14";
   };
 };
 ignores = (
   {
-    level = "JOINS PARTS QUITS NICKS MODES";
+    level = "JOINS PARTS QUITS";
     channels = (
       "##adventofcode",
       "#python",
@@ -476,7 +310,13 @@ ignores = (
       "##programming",
       "#lobsters",
       "#neovim",
-      "#scheme"
+      "#scheme",
+      "#go-nuts",
+      "#systemd",
+      "#ansible",
+      "#archlinux",
+      "#debian",
+      "#debian-mentors"
     );
   }
 );
@@ -495,105 +335,5 @@ windows = {
     level = "MSGS ACTIONS DCCMSGS";
   };
   3 = { name = "hilight"; };
-  4 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#irssi";
-        tag = "Freenode";
-      }
-    );
-  };
-  5 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#freenode";
-        tag = "Freenode";
-      }
-    );
-  };
-  6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#vim";
-        tag = "Freenode";
-      }
-    );
-  };
-  7 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#python";
-        tag = "Freenode";
-      }
-    );
-  };
-  8 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "##linux";
-        tag = "Freenode";
-      }
-    );
-  };
-  9 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#docker";
-        tag = "Freenode";
-      }
-    );
-  };
-  10 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "##programming";
-        tag = "Freenode";
-      }
-    );
-  };
-  11 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "##networking";
-        tag = "Freenode";
-      }
-    );
-  };
-  12 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#raspberrypi";
-        tag = "Freenode";
-      }
-    );
-  };
-  13 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#lobsters";
-        tag = "Freenode";
-      }
-    );
-  };
 };
 mainwindows = { 1 = { first_line = "1"; lines = "46"; }; };

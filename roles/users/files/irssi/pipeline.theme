@@ -250,7 +250,7 @@ formats = {
     chanmode_change = "%_%Kmode%_%K |%n {$channel $0} %W{channick_hilight $2} %nsets mode %K{$mode $1}";
     channel_mode = "%_%Kmode%_%K |%n {$channel $0} %W{channick_hilight $2} %nsets mode %K{$mode $1}";
     own_msg = "{ownmsgnick $2 {ownnick $[0]0}}$1";
-    pubmsg = "{pubmsgnick $2 {pubnick \00307$[0]0}}$1";
+    pubmsg = "{pubmsgnick $2 {pubnick $nickcolor$0}}$1";
   };
   "fe-common/text" = { window_info_sticky = "%#  Sticky  : $0"; };
   "fe-common/irc" = {
@@ -263,8 +263,11 @@ formats = {
   };
   "Irssi::Script::adv_windowlist" = {
     awl_display_key_active = "%R$N${cumode_space}$H$C$S";
+    awl_display_nokey_active = "%R$N${cumode_space}$H$C$S";
     awl_display_header = "";
     awl_display_key = "$N%K|%n$H$C$S";
     awl_display_key_visible = "$N%K|%n$H$C$S";
+    awl_display_nokey = "$N%K|%n$H$C$S";
+    awl_display_nokey_visible = "$N%K|%n$H$C$S";
   };
 };

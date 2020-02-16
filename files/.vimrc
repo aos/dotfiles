@@ -397,6 +397,9 @@ nnoremap <silent> <Esc> :noh<CR><Esc>
 " Maps insert-mode 'jk' to escape key
 inoremap jk <Esc>
 
+" Map neovim terminal exit to jk
+tnoremap jk <C-\><C-n>
+
 " Open file explorer in new vertical split pane
 nnoremap _ <C-w>v:Dirvish<CR>
 
@@ -406,9 +409,6 @@ nnoremap gV `[v`]
 " Remap Q to be @@ so that replaying macros is that much easier
 nnoremap Q @@
 
-" Map neovim terminal exit to jk
-tnoremap jk <C-\><C-n>
-
 " Remaps original <Tab> function (forward jumplist) to <C-p>
 " We do this because we end up using <Tab> for FZF
 noremap <C-p> <Tab>
@@ -416,7 +416,10 @@ noremap <C-p> <Tab>
 " Remap BS in normal mode to flip back to the last buffer
 nnoremap <BS> <C-^>
 
-"=== Command-line {{{
+" Remap <C-l> to also remove highlight searching
+nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
+
+" === Command-line {{{
 " start of line
 cnoremap <C-A> <Home>
 " back one character

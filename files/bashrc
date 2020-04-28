@@ -1,0 +1,82 @@
+# Colorized 'ls' and other things (for darwin)
+export CLICOLOR=1
+
+# Remove chopping long lines from systemd less options
+export SYSTEMD_LESS=FRXMK
+
+# Do git completion in terminal
+source "$HOME"/.git-completion.bash
+
+# alacritty completions
+[ -f "$HOME"/.bash_completion/alacritty ] && source "$HOME"/.bash_completion/alacritty
+
+# Aliases
+[ -f "$HOME"/.aliases.bash ] && source "$HOME"/.aliases.bash
+
+# Add nvim to environment
+export EDITOR=nvim
+# Add terminal name for GPG (used to sign git commits)
+export GPG_TTY=$(tty)
+
+# Make 'fzf' respect .gitignore file
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# Show git branch
+parse_git_branch () {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# Make directory and 'cd' into it
+mkcd () {
+  mkdir -p -- "$1"
+  cd -P -- "$1" || exit
+}
+
+# Use # of jobs or a specific character for prompt
+prompt_char_f() { [[ "$1" != 0 ]] && echo "$1" || echo ∞; }
+
+# Prompt
+TEAL="\[\033[96m\]"
+YELLOW="\[\033[33m\]"
+CLEAR="\[\033[00m\]"
+# \j lists number of jobs
+PROMPT_CHAR='$(prompt_char_f \j)'
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  PROMPT_CHAR="\u@\h"
+fi
+PS1="$TEAL[$PROMPT_CHAR]$CLEAR \W$YELLOW\$(parse_git_branch)$CLEAR $TEAL¬$CLEAR "
+
+# Appends history of bash instead of deleting
+shopt -s histappend
+shopt -s cmdhist # Adjust multiline items to fit on one line
+HISTSIZE=1000
+HISTFILESIZE=100000
+# Ignores commands that start with space and duplicates
+HISTCONTROL=ignoreboth
+# Ignores the following words in bash history
+HISTIGNORE='ls:bg:fg:history*:pass*'
+HISTTIMEFORMAT='%F %T '
+
+# If readline is being used, this allows re-editing failed history substitution
+shopt -s histreedit
+shopt -s histverify
+
+# FZF
+# shellcheck source=/home/aos/.fzf.bash
+[ -f "$HOME"/.fzf.bash ] && source "$HOME"/.fzf.bash
+
+# Add $GOPATH
+export GOPATH="/home/aos/code/go"
+export GOBIN="$GOPATH/bin"
+if [[ ! "$PATH" == *$GOBIN* ]]; then
+  export PATH="$GOBIN:$PATH"
+fi
+
+# Add firefox to PATH
+ln -s /opt/firefox/firefox "$HOME"/.local/bin/firefox 2>/dev/null
+
+# Start goto
+command -v goto >/dev/null && eval "$(goto --init)"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

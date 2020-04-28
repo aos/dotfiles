@@ -5,6 +5,12 @@ find . -iname "*.py" -type f -exec sed -i '' 's/abc/XYZ/gi' {} \;
 find . -exec file {} +
   - "+" Adds the executed command to the same line with spacing
   - "\;" Terminates command (escapes semicolon)
+2. Find just the subdirectory name in *preqs/pkg/*" with modified time 10 days ago
+find . -maxdepth 3 -type d -path "*preqs/pkg/*" -mtime +10
+
+- du
+1. Find disk used in human-readable output with a total count of max-depth 1
+du -hc --max-depth=1
 
 - bc
 1. Converting numbers between bases using 'bc'
@@ -110,6 +116,9 @@ nmap -sS -p 22 192.168.1.0/24
     addresses are of length 32 bits, 32 - 24 = 8 bits or 256. This leaves the
     last 0-255 to be scanned.
 
+2. Scan network for available hosts (do not do port scanning)
+nmap -sP "192.168.0.*" (or 192.168.0.0/24)
+
 - vim
 1. Copying filenames and directories (leader mappings)
   - cfr (relative path + file)
@@ -200,6 +209,11 @@ ssh -i <path to private SSH key> <username>@<IP address>
 ssh -o "PubkeyAuthentication=no" <username>@<IP Address>
 6. If you still get asked for a password, use option:
   -o "IdentitiesOnly=yes"
+7. Get fingerprint (md5)
+ssh-keygen -E md5 -lf <path-to-ssh-key>
+8. Tunneling (-N: do not execute remote commands, -T: disable pty allocation)
+ssh -L [local_address]:<port>:<remote_address>:<remote_port> -N -T <machine>
+example: ssh -i <id_file> -L localhost:8088:localhost:8082 -N -T aos@pylon.vicarioussurgical.com
 
 - usermod
 (Add a user "sudo" privileges, check 'visudo' for the %sudo group)
@@ -212,6 +226,12 @@ Model.where('name ILIKE ?', '%word%')
 - git
 1. Add deleted files to staging
 git add -u
+2. Show current commit hash
+git rev-parse [--short] HEAD
+3. Revert a file to a certain commit/branch name
+git checkout [commit sha/branch name] -- <filename1> [filename2...n]
+4. Diff a file to a certain time
+git diff <commit sha> <filename>
 
 - netcat
 1. Send a file on the same network
@@ -227,9 +247,17 @@ tar cfz - <file> | nc <RECV_IP> <PORT>
 3. Checking if a specific port is connectable
 nc -z <HOSTNAME> <PORT>
 
+- netstat
+1. Find listening network connections (use -t for TCP, -u for UDP)
+netstat -l -t
+2. Find the program/PID associated with the connection
+netstat -p
+
 - apt
 1. List installed packages
 apt list --installed
+2. Get information about possible problems
+apt-listchanges <package> (shows info in /usr/share/doc/<package>/NEWS.Debian)
 
 - Pi monitoring
 1. nethogs
@@ -269,9 +297,11 @@ go tool pprof cpu.out # for cpu
 
 - irssi
 1. Scroll up and down
-fn + Up/Down
+fn + Up/Down (page up/down)
 2. Config
 https://git.sr.ht/~aos/irssi
+3. Switch servers (without disconnecting)
+Ctrl-x
 
 - desktop notifications (mac osx)
 1. Using AppleScript: display notification "Hello there" with title "Yes"
@@ -289,3 +319,65 @@ sed -i 's/blah/blahAgain/g'
 sed -i -e 's/edit/intothis/g' -e 's/butAlso/Thishere/g'
 3. Append lines after match (use /a)
 sed -e '/thisMatch/a "Add this line below thisMatch"'
+
+- nightlight
+gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature <TEMP>
+
+- psql (from the shell) -- bring up help with `\?`
+1. Connect to a psql shell
+psql -U <username> -h <hostname> [< <pipe in .sql file to run query>]
+2. List databases
+\l
+3. List tables
+\dt
+4. Describe table (see how it's structured)
+\d <table name>
+5. List schemas
+\dn
+6. See what the command is doing behind the scenes
+EXPLAIN <COMMAND>
+-> Ex: EXPLAIN SELECT * FROM rides;
+
+-- Timescale DB funcs:
+time_bucket('5 minutes', <time_column>)
+
+- i3
+1. Switch to stacked layout
+$mod + s
+2. Run something
+$mod + d
+3. Toggle full screen
+$mod + f
+
+- lsof
+1. Show processes that are using a particular port
+lsof -i tcp:<port number>
+
+- dpkg
+1. List files installed by package
+dpkg -L <package-name>
+2. Print architecture
+dpkg --print-architecture
+3. Check status of package
+dpkg -s <package-name>
+4. Find the package which contains file
+dpkg -S <file-name>
+5. List packages known
+dpkg -l '[optional search]'
+6. List files of specified debian package (.deb)
+dpkg -c <filename>.deb
+7. Display headers of package (.deb)
+dpkg -I <filename>.deb
+8. Get list of installed packages
+dpkg --get-selections
+
+- dpkg-deb (work with ".deb" files)
+1. Extract package
+dpkg-deb -X <deb> <directory>
+
+- socat
+1. Create a VPN connection to a server through ssh, using TUN
+    - This allows us to reach 192.168.32.1 and don't need to specify or forward
+      certain ports
+socat -d -d TUN:192.168.32.2/24,up \
+  SYSTEM:"ssh root@server socat -d -d - 'TUN:192.168.32.1/24,up'"

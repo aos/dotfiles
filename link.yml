@@ -9,11 +9,11 @@
     - name: Link all dotfiles to home directory
       file:
         src: "{{ item }}"
-        dest: "{{ homedir }}/{{ item | basename }}"
+        dest: "{{ homedir }}/.{{ item | basename }}"
         state: link
         force: true
       with_fileglob:
-        - "files/.*"
+        - "files/*"
 
     - name: Create some directories necessary for (n)vim and iterm
       file:

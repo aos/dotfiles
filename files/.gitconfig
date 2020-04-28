@@ -1,7 +1,7 @@
 [user]
-  name = Aos
-  email = aosdab@gmail.com
-  signingkey = F1F213E4F35900E1
+  name = Aos Dabbagh
+  email = adabbagh@vicarioussurgical.com
+  signingkey = D014A6686D5F1B01
 
 [alias]
   s = status
@@ -12,9 +12,9 @@
   ds = diff --staged
   l = log --stat --abbrev-commit
   ll = log --graph --all --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
-  lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an (%aE)%C(reset)' --all
+  lg = log --graph --all --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an (%aE)%C(reset)'
   root = rev-parse --show-toplevel
-  sha1 = !sh -c 'git rev-parse --short ${1:-HEAD}' --
+  sha = !sh -c 'git rev-parse --short ${1:-HEAD}' --
   # For saving normal diffs to email or later: 'git patch > changes.patch'
   patch = !git --no-pager diff --no-color
   alias = config --get-regexp alias
@@ -23,9 +23,6 @@
 [core]
   editor = nvim
   pager = diff-so-fancy | less --tabs=4 -RFX
-  excludesfile = /Users/adabbagh/.global_ignore
-[credential]
-  helper = osxkeychain
 [color]
   ui = true
 [color "diff-highlight"]
@@ -45,6 +42,6 @@
 [mergetool "nvim"]
   cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
 [gpg]
-  program = /usr/local/bin/gpg
+  program = /usr/bin/gpg
 [commit]
   gpgsign = true

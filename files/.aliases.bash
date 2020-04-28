@@ -20,6 +20,16 @@ ll () {
   ls "${opts[@]}"
 }
 
+color () {
+  if [ "$#" -ne 1 ]; then
+    echo "Usage:
+    color <temperature>"
+    return
+  fi
+
+  gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature "$1"
+}
+
 # Colorized ls is best ls
 # -l  long format
 # -F  displays ('/', '*', '@', etc.) after certain paths
@@ -27,8 +37,6 @@ ll () {
 # -h  use unit suffixes (Byte, Kilobyte, etc.)
 # -a  dirs with ('.')
 ls --color=auto &> /dev/null && alias ls='ls -F --color=auto' || alias ls='ls -F'
-
-alias ff="/usr/bin/open -a '/Applications/FirefoxDeveloperEdition.app'"
 
 # For pushd and popd
 alias dirs="dirs -v"
@@ -45,7 +53,6 @@ alias summon="echo -e '\x1b(0'"
 # Make sure ssh works with tmux terminal
 alias ssh="TERM=xterm-256color ssh"
 
-# IRC -- to fix weird scrolling
-alias irc="TERM=screen-256color irssi"
-
 alias note="vim '+call AppendToLog()'"
+
+alias open="xdg-open"

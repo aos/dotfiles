@@ -16,6 +16,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                 " Fast fuzzy finder (:fzf)
 Plug 'tpope/vim-fugitive'               " Awesome git wrapper (:Git)
 Plug 'tpope/vim-surround'               " Parentheses surrounded (ys, cs, ds)
+Plug 'tpope/vim-unimpaired'             " Bracket mappings
 Plug 'jiangmiao/auto-pairs'             " Autoclose brackets, parens, quotes
 Plug 'junegunn/vim-easy-align'          " Easy align stuff! (Use `ga`)
 Plug 'justinmk/vim-dirvish'             " File explorer
@@ -115,6 +116,16 @@ set statusline+=\ %p%%                  " Percent
 set statusline+=\  
 " }}}
 
+" ========= Indentation =================== {{{
+" Number of spaces that a <Tab> counts for while editing
+set softtabstop=2
+" Indentation amount for < and > commands
+let &shiftwidth = &softtabstop
+set shiftround      " Round indent to multiple of 'shiftwidth'
+set expandtab       " Insert spaces when <Tab> is pressed
+"set tabstop=2       " Render tabs using this many spaces
+" }}}
+
 " ========= Color scheme and filetype ===== {{{
 filetype plugin indent on
 syntax enable
@@ -182,12 +193,18 @@ let g:ale_linters = {
   \ 'javascript': ['eslint'],
   \ 'python': ['flake8'],
   \ 'ruby': ['rubocop'],
-  \ 'jsx': ['eslint', 'stylelint']
+  \ 'jsx': ['eslint', 'stylelint'],
+  \ 'markdown': ['markdownlint']
+\}
+let g:ale_fixers = {
+  \ 'python': ['black']
 \}
 let g:ale_sign_error = '▶▶'
 let g:ale_sign_warning = '┄┄'
+"let g:ale_linters_explicit = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
+let g:ale_fix_on_save = 1
 let g:ale_javascript_eslint_suppress_missing_config = 1
 
 hi! link ALEErrorSign WarningMsg
@@ -210,7 +227,7 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " === Previm -- preview file using :PrevimOpen
-let g:previm_open_cmd = 'open -a FirefoxDeveloperEdition'
+let g:previm_open_cmd = 'qutebrowser --target tab'
 
 " === Tslime
 let g:tslime_always_current_session = 1
@@ -238,10 +255,10 @@ hi DirvishGitUntracked guifg=#9D0006 guibg=#262626
 " }}}
 
 " ========= Python provider install ======= {{{
-if has('mac')
-  let g:python3_host_prog = '/usr/local/bin/python3'
-  let g:python_host_prog = '/usr/bin/python'
-endif
+"if has('mac')
+"  let g:python3_host_prog = '/usr/local/bin/python3'
+"  let g:python_host_prog = '/usr/bin/python'
+"endif
 " }}}
 
 " ========= Deoplete global options ======= {{{
@@ -262,17 +279,6 @@ set noswapfile
 set nobackup
 set nowritebackup
 " }}}
-
-" ========= Indentation =================== {{{
-" Number of spaces that a <Tab> counts for while editing
-set softtabstop=2
-" Indentation amount for < and > commands
-let &shiftwidth = &softtabstop
-set shiftround      " Round indent to multiple of 'shiftwidth'
-set expandtab       " Insert spaces when <Tab> is pressed
-"set tabstop=2       " Render tabs using this many spaces
-" }}}
-
 " ========= Scrolling ===================== {{{
 set scrolloff=8		" Scroll when we're 8 lines away from margins
 set sidescrolloff=7
@@ -320,9 +326,9 @@ endfunc
 
 " Open daily log and append a time stamp
 function! AppendToLog()
-  let time=strftime('%x %X (%Z)')
+  let time=strftime('%F')
   sp ~/.daily_log
-  call append('$', ['', time, ''])
+  call append('$', ['', time])
   execute "normal! Go* "
   startinsert!
 endfunc
@@ -495,8 +501,8 @@ nnoremap <Leader>sv :source ~/.vimrc<CR>
 " Save a session (can be re-opened with nvim -S)
 nnoremap <Leader>n :mksession<CR>
 
-" Toggle between normal and relative numbering
-nnoremap <silent> <Leader>r :call NumberToggle()<CR>
+" Toggle between normal and relative numbering (deprecated, use vim-unimpaired's 'yor')
+" nnoremap <silent> <Leader>r :call NumberToggle()<CR>
 
 " Map search and replace to 's', global and ask for confirmation
 nnoremap <Leader>s :%s///gc<Left><Left><Left><Left>
@@ -508,16 +514,16 @@ nnoremap <Leader>wd :%s/\s\+$//e<CR>
 
 " Copy current file name (relative/absolute) to system clipboard
 " relative path (src/foo.txt)
-nnoremap <Leader>cfr :let @*=expand("%")<CR>
+nnoremap <Leader>cfr :let @+=expand("%")<CR>
 
 " absolute path (/usr/blah/src/foo.txt)
-nnoremap <Leader>cfa :let @*=expand("%:p")<CR>
+nnoremap <Leader>cfa :let @+=expand("%:p")<CR>
 
 " filename only (foo.txt)
-nnoremap <Leader>cff :let @*=expand("%:t")<CR>
+nnoremap <Leader>cff :let @+=expand("%:t")<CR>
 
 " directory name (/usr/blah/src)
-nnoremap <Leader>cfd :let @*=expand("%:p:h")<CR>
+nnoremap <Leader>cfd :let @+=expand("%:p:h")<CR>
 " }}}
 
 " === FZF and Ag ============== {{{
@@ -560,8 +566,8 @@ command! J :call JSONify()
 " Make current buffer executable
 command! Chmodx :!chmod a+x %
 
-" Toggle spellchecker
-command! Spell :setlocal spell! spell?
+" Toggle spellchecker (deprecated, use vim-unimpaired's 'yos')
+" command! Spell :setlocal spell! spell?
 " }}}
 
 " ========= Autocmds ====================== {{{
@@ -611,6 +617,11 @@ augroup dirvish_config
   autocmd FileType dirvish nnoremap <silent><buffer>
     \  gh :silent keeppatterns g@\v/\.[^\/]+/?$@d _<CR>
 augroup END
-" }}}
 
-" vim: foldmarker={{{,}}}:foldmethod=marker:
+" Go config
+augroup golang_config
+  autocmd!
+  autocmd FileType go setlocal noet ts=8 sw=8 sts=8
+augroup END
+" }}}
+"" vim: foldmarker={{{,}}}:foldmethod=marker:

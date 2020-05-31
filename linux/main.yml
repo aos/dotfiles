@@ -1,0 +1,47 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+
+  vars_files:
+    - vars.yml
+
+  pre_tasks:
+    - name: Update apt cache if necessary
+      apt: update_cache=true cache_valid_time=86400
+      ignore_errors: yes
+
+    - name: Add custom keys
+      apt_key:
+        url: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ apt_keys }}"
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Add custom repos
+      apt_repository:
+        repo: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ apt_repos }}"
+      when: ansible_distribution == "Ubuntu" 
+
+  roles:
+        #- geerlingguy.pip
+    - geerlingguy.docker
+
+  tasks:
+    - name: Install Ubuntu packages
+      apt:
+        name: "{{ apt_packages|map(attribute='pkg')|list }}"
+        state: present
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install go packages
+      command:
+        cmd: "/usr/bin/go get {{ item }}"
+        creates: "{{ lookup('env', 'GOBIN') }}/{{ item }}"
+      with_items:
+      - "{{  go_packages }}"
+      become: no

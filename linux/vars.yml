@@ -1,0 +1,48 @@
+apt_keys:
+  - 'https://download.spotify.com/debian/pubkey.gpg'
+
+apt_repos:
+  - 'ppa:mmstick76/alacritty'
+    #- 'ppa:longsleep/golang-backports'
+    #- 'ppa:nathan-renniewaldock/flux'
+  - 'deb http://repository.spotify.com stable non-free'
+    #- 'ppa:hnakamur/universal-ctags'
+
+apt_packages:
+  - { "pkg": "alacritty", "desktop": true }
+    #- { "pkg": "arandr", "desktop": true }
+    #- { "pkg": "autorandr", "desktop": true }
+    #- { "pkg": "compton", "desktop": true }
+    #- { "pkg": "fluxgui", "desktop": true }
+  - { "pkg": "spotify-client", "desktop": true }
+    #- { "pkg": "redshift", "desktop": true }
+    #- { "pkg": "i3", "desktop": true }
+    #- { "pkg": "golang", "desktop": false }
+  - { "pkg": "net-tools", "desktop": false }
+  - { "pkg": "pass", "desktop": false }
+  - { "pkg": "silversearcher-ag", "desktop": false }
+  - { "pkg": "tmux", "desktop": false }
+  - { "pkg": "tree", "desktop": false }
+    #- { "pkg": "universal-ctags", "desktop": false }
+  - { "pkg": "vagrant", "desktop": false }
+  - { "pkg": "virtualbox", "desktop": false }
+
+# Individual deb packages
+# - haikarainen/light
+# (Need to chmod a+w to /sys/class/backlight/intel_backlight/backlight)
+
+# Other packages:
+# - firefox-dev
+
+go_packages:
+  - 'github.com/charmbracelet/glow'
+  - 'github.com/aos/goto'
+
+pip_package: python3-pip
+pip_install_packages:
+  - pynvim
+    #- 'pywinrm>=0.3.0'
+  - docker
+  - flake8
+  - black
+  - pipenv

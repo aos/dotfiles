@@ -24,7 +24,7 @@ Plug 'kristijanhusak/vim-dirvish-git'   " Plug git into dirvish
 Plug 'lilydjwg/colorizer'               " Colorize hex #FFF
 Plug 'aos/tslime.vim'                   " Send commands from vim to tmux
 " Markdown previewer
-Plug 'kannokanno/previm', { 'for': 'markdown' }
+"Plug 'kannokanno/previm', { 'for': 'markdown' }
 "Plug 'iamcco/markdown-preview.nvim', { 'for': 'markdown' }
 
 " Go swiss army knife
@@ -32,16 +32,18 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " On-demand lazy-loaded syntax highlighting for ALL the languages
 Plug 'sheerun/vim-polyglot'
+
+""" Scheme/Lisp
 " Rainbow parentheses for scheme/lisp
-Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['scheme', 'lisp'] }
+"Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['scheme', 'lisp'] }
 " Grab vim-sexp for selecting forms
-Plug 'guns/vim-sexp', { 'for': ['scheme', 'lisp'] }
+"Plug 'guns/vim-sexp', { 'for': ['scheme', 'lisp'] }
 " And let's make it easier to use
-Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['scheme', 'lisp'] }
+"Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['scheme', 'lisp'] }
 
 " Language servers (for deoplete)
 Plug 'zchee/deoplete-jedi'                                        " Python
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }  " JS
+"Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }  " JS
 
 " Colorschemes
 "Plug 'lifepillar/vim-gruvbox8'
@@ -279,6 +281,7 @@ set noswapfile
 set nobackup
 set nowritebackup
 " }}}
+
 " ========= Scrolling ===================== {{{
 set scrolloff=8		" Scroll when we're 8 lines away from margins
 set sidescrolloff=7

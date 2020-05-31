@@ -67,6 +67,10 @@ shopt -s histverify
 [ -f "$HOME"/.fzf.bash ] && source "$HOME"/.fzf.bash
 
 # Add $GOPATH
+GO="/usr/local/go/bin"
+if [[ ! "$PATH" == *$GO* ]]; then
+  export PATH="$PATH:$GO"
+fi
 export GOPATH="/home/aos/code/go"
 export GOBIN="$GOPATH/bin"
 if [[ ! "$PATH" == *$GOBIN* ]]; then

@@ -1,0 +1,21 @@
+---
+- name: Install apt package dependencies
+  apt:
+    name: "libusb-dev"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Add udev rules
+  copy:
+    src: "50-wally.rules"
+    dest: "/etc/udev/rules.d/"
+    owner: root
+    group: root
+
+- name: Install wally binary
+  get_url:
+    url: "https://configure.ergodox-ez.com/wally/linux" 
+    dest: "~/.local/bin/wally"
+    mode: "0755"
+  become: no

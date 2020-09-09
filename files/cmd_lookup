@@ -62,6 +62,10 @@ gpg --export-secret-keys <$ID> > my-private-key.asc
 gpg --import my-private-key.asc
 9. Get key ID (it is on the same line as pub/sec)
 gpg -K --keyid-format LONG
+10. Renew expired key
+gpg --edit-key <key@key.com>
+key [1, 2]
+expire
 
 - dig
 1. For CNAME or A record lookup
@@ -163,6 +167,20 @@ nmap -sP "192.168.0.*" (or 192.168.0.0/24)
 1. :Commits
   - Git commits
 2. :Lines
+
+- easy_align (vim)
+1. visually select group, press "ga"
+- delimiters: (<Space>, =, :, ., |, &, #, ",")
+- regex: <ctrl+x> in interactive mode
+---
+    =       Around the 1st occurrences
+    2=      Around the 2nd occurrences
+    *=      Around all occurrences
+    **=     Left/Right alternating alignment around all occurrences
+    <Enter> Switching between left/right/center alignment modes
+---
+2. Set ignore groups: <Ctrl-g> (default: string, comment)
+3. :LiveEasyAlign for preview (press same delim to finalize)
 
 - docker
 1. Grab an image

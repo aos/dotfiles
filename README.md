@@ -1,6 +1,6 @@
 ## Dotfiles
 
-My dotfiles are in here. I use `ansible` to keep track of my dotfiles. The task
+My dotfiles are in here. I use `ansible` to configure the machine. The playbook
 will take all the dotfiles (located in `files/`) and symlink them into the
 home directory.
 

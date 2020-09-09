@@ -42,8 +42,8 @@ alias grep='grep --color'
 alias summon="echo -e '\x1b(0'"
 
 # Make sure ssh works with tmux terminal
-#alias ssh="TERM=xterm-256color ssh"
+alias ssh="TERM=xterm-256color ssh"
 
-alias note="vim scp://devserver '+call AppendToLog()'"
+alias note="vim '+call AppendToLog()'"
 
 alias open="xdg-open"

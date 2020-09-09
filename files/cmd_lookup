@@ -5,8 +5,10 @@ find . -iname "*.py" -type f -exec sed -i '' 's/abc/XYZ/gi' {} \;
 find . -exec file {} +
   - "+" Adds the executed command to the same line with spacing
   - "\;" Terminates command (escapes semicolon)
-2. Find just the subdirectory name in *preqs/pkg/*" with modified time 10 days ago
+3. Find just the subdirectory name in *preqs/pkg/*" with modified time 10 days ago
 find . -maxdepth 3 -type d -path "*preqs/pkg/*" -mtime +10
+4. Find hardlinks for the same file
+find . -samefile /path/to/file
 
 - du
 1. Find disk used in human-readable output with a total count of max-depth 1
@@ -259,6 +261,14 @@ apt list --installed
 2. Get information about possible problems
 apt-listchanges <package> (shows info in /usr/share/doc/<package>/NEWS.Debian)
 
+- apt-cache
+1. Get Installed and Candidate versions
+apt-cache policy <package>
+2. Get Depends header
+apt-cache depends <package>
+3. Get unmet dependencies
+apt-cache unmet <package>
+
 - Pi monitoring
 1. nethogs
 2. htop
@@ -381,3 +391,7 @@ dpkg-deb -X <deb> <directory>
       certain ports
 socat -d -d TUN:192.168.32.2/24,up \
   SYSTEM:"ssh root@server socat -d -d - 'TUN:192.168.32.1/24,up'"
+
+- mtpaint / gthumb
+1. For cropping: gthumb
+2. For drawing shapes: mtpaint

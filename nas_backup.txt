@@ -1,0 +1,6 @@
+https://soyuka.me/borg-backups-archlinux-synology/
+
+I used mostly this. Configuration can be found in
+~/.config/borgmatic/config.yaml
+
+There is a systemd unit file and timer under ~/.config/systemd/user/borgmatic.service

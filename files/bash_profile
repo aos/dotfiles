@@ -1,2 +1,4 @@
 # Load .bashrc if it exists
 test -r ~/.bashrc && source ~/.bashrc
+
+if [ -e /home/aos/.nix-profile/etc/profile.d/nix.sh ]; then . /home/aos/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

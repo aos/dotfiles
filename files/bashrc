@@ -15,8 +15,14 @@ source "$HOME"/.git-completion.bash
 
 # Add nvim to environment
 export EDITOR=nvim
+
 # Add terminal name for GPG (used to sign git commits)
 export GPG_TTY=$(tty)
+# Set up GPG agent to use Yubikey for SSH (see: `ssh-add -l`)
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+# Make sure GPG has the right tty
+#gpg-connect-agent updatestartuptty /bye >/dev/null
+gpgconf --launch gpg-agent
 
 # Make 'fzf' respect .gitignore file
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
@@ -84,3 +90,5 @@ ln -s /opt/firefox/firefox "$HOME"/.local/bin/firefox 2>/dev/null
 command -v goto >/dev/null && eval "$(goto --init)"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+complete -C /usr/bin/terraform terraform

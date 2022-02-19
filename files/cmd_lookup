@@ -101,6 +101,8 @@ ls | awk '/li/ {gsub(/ /, ""); print $1}'
   - Resize pane some other way:
     - <prefix> + :
       - 'resize-pane -{D, U, L, R} [#]'
+  - Interactively
+    - Hold down <prefix> + up, down, left, right arrows
 11. Re-arrange panes:
   - <prefix> + { or }
   - additionally, you can use command ':swap-pane -{D, U, L, R}'
@@ -112,6 +114,8 @@ ls | awk '/li/ {gsub(/ /, ""); print $1}'
 14. Swap windows
   - <prefix> + :
       - 'swap-window -s {number of source window} -t {number of target}'
+15. Change pane layout
+  - <prefix> + <space>
 
 - nmap
 1. Scan network for open SSH

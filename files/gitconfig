@@ -1,6 +1,6 @@
 [user]
   name = Aos Dabbagh
-  email = aosdab@gmail.com
+  email = adabbagh@vicarioussurgical.com
 
 [alias]
   s = status
@@ -21,6 +21,7 @@
 
 [core]
   editor = nvim
+  pager = diff-highlight | less --tabs=4 -RFX
 [color]
   ui = true
 [color "diff"]

@@ -1,0 +1,235 @@
+diff --git a/.vimrc b/home/aos/code/dotfiles/files/vimrc
+index 3da52f5..e3188e8 100644
+--- a/.vimrc
++++ b/home/aos/code/dotfiles/files/vimrc
+@@ -29,7 +29,7 @@ Plug 'kristijanhusak/vim-dirvish-git'   " Plug git into dirvish
+ Plug 'lilydjwg/colorizer'               " Colorize hex #FFF
+ Plug 'aos/tslime.vim'                   " Send commands from vim to tmux
+ " Markdown previewer
+-Plug 'kannokanno/previm', { 'for': 'markdown' }
++"Plug 'kannokanno/previm', { 'for': 'markdown' }
+ "Plug 'iamcco/markdown-preview.nvim', { 'for': 'markdown' }
+ 
+ " Go swiss army knife
+@@ -37,21 +37,21 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+ 
+ " On-demand lazy-loaded syntax highlighting for ALL the languages
+ Plug 'sheerun/vim-polyglot'
++
++""" Scheme/Lisp
+ " Rainbow parentheses for scheme/lisp
+-Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['scheme', 'lisp'] }
++"Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['scheme', 'lisp'] }
+ " Grab vim-sexp for selecting forms
+-Plug 'guns/vim-sexp', { 'for': ['scheme', 'lisp'] }
++"Plug 'guns/vim-sexp', { 'for': ['scheme', 'lisp'] }
+ " And let's make it easier to use
+-Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['scheme', 'lisp'] }
++"Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': ['scheme', 'lisp'] }
+ 
+ " Language servers (for deoplete)
+-Plug 'zchee/deoplete-jedi'                                        " Python
+-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }  " JS
++Plug 'zchee/deoplete-jedi'                                         " Python
++"Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }  " JS
+ 
+ " Colorschemes
+-Plug 'lifepillar/vim-gruvbox8'
+-"Plug 'romainl/Apprentice'
+-Plug 'habamax/vim-alchemist'
++"Plug 'lifepillar/vim-gruvbox8'
+ "Plug 'bluz71/vim-moonfly-colors'
+ "Plug 'joshdick/onedark.vim'
+ "Plug 'mhartington/oceanic-next'
+@@ -65,6 +65,8 @@ Plug 'habamax/vim-alchemist'
+ "Plug 'junegunn/seoul256.vim'
+ "Plug 'jnurmine/Zenburn'
+ "Plug 'chriskempson/base16-vim'
++Plug 'romainl/Apprentice'
++Plug 'habamax/vim-alchemist'
+ "Plug 'tyrannicaltoucan/vim-deep-space'
+ call plug#end()
+ " }}}
+@@ -119,7 +121,7 @@ set statusline+=%=                      " Right align
+ set statusline+=\ %y                    " Filetype
+ set statusline+=\ %l:%c\ %L             " Line number : column number (total lines)
+ set statusline+=\ %p%%                  " Percent
+-set statusline+=\ 
++set statusline+=\  
+ " }}}
+ 
+ " ========= Indentation =================== {{{
+@@ -132,18 +134,15 @@ set expandtab       " Insert spaces when <Tab> is pressed
+ "set tabstop=2       " Render tabs using this many spaces
+ " }}}
+ 
+-" ========= Colorscheme and filetype ===== {{{
++" ========= Color scheme and filetype ===== {{{
+ filetype plugin indent on
+ syntax enable
+ set termguicolors
+-set background=dark " can use light for gruvbox8
++set background=dark
+ "let g:oceanic_next_terminal_bold=1
+ "let g:oceanic_next_terminal_italic=1
+ "let g:onedark_terminal_italics=1
+-colorscheme alchemist " one of apprentice or gruvbox8{_soft, hard}
+-if &background == "light"
+-  colorscheme gruvbox8_soft
+-endif
++colorscheme alchemist
+ "let g:gruvbox_plugin_hi_groups = 1
+ "let g:gruvbox_transp_bg = 1
+ "let g:seoul256_background = 234
+@@ -159,21 +158,16 @@ set cursorline
+ set cursorcolumn
+ "highlight column 80
+ set colorcolumn=80
+-
+-if &background == "dark"
+-  highlight ColorColumn guibg=#3A3A3A
+-  highlight CursorLine guibg=#2F2F2F
+-  highlight CursorColumn guibg=#2F2F2F
+-
+-  " == Tab bar coloring
+-  highlight TabLineFill guibg=#3A3A3A guifg=#3A3A3A
+-  highlight TabLine guibg=#B7B7B7 guifg=#3A3A3A
+-  highlight TabLineSel guifg=#D6B600
+-endif
+-
++highlight ColorColumn guibg=#3A3A3A
++highlight CursorLine guibg=#2F2F2F
++highlight CursorColumn guibg=#2F2F2F
+ highlight LineNr guibg=NONE
+ highlight SignColumn guibg=NONE
+ 
++" == Tab bar coloring
++highlight TabLineFill guibg=#3A3A3A guifg=#3A3A3A
++highlight TabLine guibg=#B7B7B7 guifg=#3A3A3A
++highlight TabLineSel guifg=#D6B600
+ " == Remove tildes at end of buffer
+ "highlight EndOfBuffer ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+ 
+@@ -195,7 +189,7 @@ set listchars=tab:▸\ ,eol:¬
+ " }}}
+ 
+ " ========= Folding options =============== {{{
+-set foldmethod=syntax                     " Fold based on indent
++set foldmethod=indent                     " Fold based on indent
+ set foldnestmax=3                         " Deepest fold is 3 levels
+ set foldlevelstart=99                     " All folds open by default
+ highlight! link Folded Special
+@@ -211,11 +205,10 @@ let g:ale_linters = {
+   \ 'python': ['flake8'],
+   \ 'ruby': ['rubocop'],
+   \ 'jsx': ['eslint', 'stylelint'],
+-  \ 'markdown': ['markdownlint'],
+-  \ 'rust': ['analyzer'],
++  \ 'markdown': ['markdownlint']
+ \}
+ let g:ale_fixers = {
+-  \ 'python': ['black'],
++  \ 'python': ['black']
+ \}
+ let g:ale_sign_error = '▶▶'
+ let g:ale_sign_warning = '┄┄'
+@@ -241,7 +234,7 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+ nmap <silent> <C-j> <Plug>(ale_next_wrap)
+ 
+ " === Previm -- preview file using :PrevimOpen
+-"let g:previm_open_cmd = 'qutebrowser --target tab'
++let g:previm_open_cmd = 'qutebrowser --target tab'
+ 
+ " === Tslime
+ let g:tslime_always_current_session = 1
+@@ -253,7 +246,7 @@ vmap <localleader>s <Plug>SendSelectionToTmux
+ " Reset the session, window, and pane info
+ nmap <localleader>R <Plug>SetTmuxVars
+ " Send something to Tmux
+-nmap <localleader>t :Tmux
++nmap <localleader>t :Tmux 
+ 
+ " === Easy Align
+ " Interactive EA in visual mode (vipga)
+@@ -293,6 +286,7 @@ set noswapfile
+ set nobackup
+ set nowritebackup
+ " }}}
++
+ " ========= Scrolling ===================== {{{
+ set scrolloff=8		" Scroll when we're 8 lines away from margins
+ set sidescrolloff=7
+@@ -328,18 +322,7 @@ xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
+ 
+ " ========= Functions ===================== {{{
+ 
+-" Switch between dark and light theme
+-function! SwitchTheme()
+-  if &background == "dark"
+-    set background=light
+-    colorscheme gruvbox8_soft
+-  else
+-    set background=dark
+-    colorscheme alchemist
+-  endif
+-endfunc
+-
+-" <<deprecated>> Toggle between relative and absolute line numbers
++" Toggle between relative and absolute line numbers
+ function! NumberToggle()
+   if(&relativenumber == 1)
+     set nornu
+@@ -428,6 +411,9 @@ nnoremap <silent> <Esc> :noh<CR><Esc>
+ " Maps insert-mode 'jk' to escape key
+ inoremap jk <Esc>
+ 
++" Map neovim terminal exit to jk
++tnoremap jk <C-\><C-n>
++
+ " Open file explorer in new vertical split pane
+ nnoremap _ <C-w>v:Dirvish<CR>
+ 
+@@ -437,9 +423,6 @@ nnoremap gV `[v`]
+ " Remap Q to be @@ so that replaying macros is that much easier
+ nnoremap Q @@
+ 
+-" Map neovim terminal exit to jk
+-tnoremap jk <C-\><C-n>
+-
+ " Remaps original <Tab> function (forward jumplist) to <C-p>
+ " We do this because we end up using <Tab> for FZF
+ noremap <C-p> <Tab>
+@@ -447,7 +430,10 @@ noremap <C-p> <Tab>
+ " Remap BS in normal mode to flip back to the last buffer
+ nnoremap <BS> <C-^>
+ 
+-"=== Command-line {{{
++" Remap <C-l> to also remove highlight searching
++nnoremap <C-L> :<C-U>nohlsearch<CR><C-L>
++
++" === Command-line {{{
+ " start of line
+ cnoremap <C-A> <Home>
+ " back one character
+@@ -591,8 +577,6 @@ command! J :call JSONify()
+ " Make current buffer executable
+ command! Chmodx :!chmod a+x %
+ 
+-command! Theme :call SwitchTheme()
+-
+ " Toggle spellchecker (deprecated, use vim-unimpaired's 'yos')
+ " command! Spell :setlocal spell! spell?
+ " }}}
+@@ -651,11 +635,4 @@ augroup golang_config
+   autocmd FileType go setlocal noet ts=8 sw=8 sts=8
+ augroup END
+ " }}}
+-
+-" Rust Analyzer / ALE mappings
+-augroup rust_config
+-  autocmd!
+-  autocmd FileType rust nnoremap <silent>gd :ALEGoToDefinition<CR>
+-  autocmd FileType rust nnoremap <silent>gD :ALEFindReferences<CR>
+-augroup END
+-" vim: foldmarker={{{,}}}:foldmethod=marker:
++"" vim: foldmarker={{{,}}}:foldmethod=marker:

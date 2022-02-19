@@ -47,3 +47,7 @@ alias ssh="TERM=xterm-256color ssh"
 alias note="vim '+call AppendToLog()'"
 
 alias open="xdg-open"
+
+alias ag="ag --path-to-ignore ~/.ignore"
+
+alias less="/usr/share/nvim/runtime/macros/less.sh"
